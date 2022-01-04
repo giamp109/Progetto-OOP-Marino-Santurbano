@@ -1,77 +1,44 @@
 package it.univpm.ProgettoSanturbanoMarino.model;
 
 public class Forecast {
-	private String date;
-	
-	private double Temperature;
-	private double TemperatureMin;
-	private double TemperatureMax;
-	private double FeelsLike;
-	private int Umidity;
+
+
+	private int humidity;
  
 
-	private String Main;
-	private String Description;
+	private String main;
+	private String description;
 	
-	public Forecast(String date, double Temperature, double TemperatureMin, double TemperatureMax, double FeelsLike, int Umidity, String Main, String Description) {
-		this.date=date;
-		this.Temperature=Temperature;
-		this.TemperatureMin=TemperatureMin;
-		this.TemperatureMax=TemperatureMax;
-		this.FeelsLike=FeelsLike;
-		this.Umidity=Umidity;
-		this.Main=Main;
-		this.Description=Description;
+	public Forecast(int humidity, String main, String description) {
+		this.humidity=humidity;
+		this.main=main;
+		this.description=description;
 	}
-	
-	public int getUmidity() {
-		return Umidity;
+
+	public int getHumidity() {
+		return humidity;
 	}
-	public void setUmidity(int umidity) {
-		Umidity = umidity;
-	}	
-	public String getDate() {
-		return date;
+
+	public void setHumidity(int humidity) {
+		this.humidity = humidity;
 	}
-	public void setDate(String date) {
-		this.date = date;
-	}
-	public double getTemperature() {
-		return Temperature;
-	}
-	public void setTemperature(double temperature) {
-		Temperature = temperature;
-	}
-	public double getTemperatureMin() {
-		return TemperatureMin;
-	}
-	public void setTemperatureMin(double temperatureMin) {
-		TemperatureMin = temperatureMin;
-	}
-	public double getTemperatureMax() {
-		return TemperatureMax;
-	}
-	public void setTemperatureMax(double temperatureMax) {
-		TemperatureMax = temperatureMax;
-	}
-	public double getFeelsLike() {
-		return FeelsLike;
-	}
-	public void setFeelsLike(double feelsLike) {
-		FeelsLike = feelsLike;
-	}
+
 	public String getMain() {
-		return Main;
+		return main;
 	}
+
 	public void setMain(String main) {
-		Main = main;
+		this.main = main;
 	}
+
 	public String getDescription() {
-		return Description;
+		return description;
 	}
+
 	public void setDescription(String description) {
-		Description = description;
+		this.description = description;
 	}
 	
+
 	
 }
