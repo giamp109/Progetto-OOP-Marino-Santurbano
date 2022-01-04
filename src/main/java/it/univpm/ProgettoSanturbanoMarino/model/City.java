@@ -2,53 +2,53 @@ package it.univpm.ProgettoSanturbanoMarino.model;
 import java.util.ArrayList;
 
 public class City {
-	private String ID;
-	private String CityName;
-	private String CityCountry;
+	private String id;
+	private String cityname;
+	private String citycountry;
 	
-	private ArrayList<Forecast> ForecastList= new ArrayList<Forecast>();
+	private ArrayList<Time> forecastlist= new ArrayList<Time>();
 	
-	public City(String ID,String CityName, String CityCountry) {
-		this.ID=ID;
-		this.CityCountry=CityCountry;
-		this.CityName=CityName;
+	public City(String id,String cityname, String citycountry) {
+		this.id=id;
+		this.citycountry=citycountry;
+		this.cityname=cityname;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getCityname() {
+		return cityname;
+	}
+
+	public void setCityname(String cityname) {
+		this.cityname = cityname;
+	}
+
+	public String getCitycountry() {
+		return citycountry;
+	}
+
+	public void setCitycountry(String citycountry) {
+		this.citycountry = citycountry;
+	}
+
+	public ArrayList<Time> getForecastlist() {
+		return forecastlist;
+	}
+
+	public void setForecastlist(ArrayList<Time> forecastlist) {
+		this.forecastlist = forecastlist;
 	}
 	
 	
 
-	public ArrayList<Forecast> getForecastList() {
-		return ForecastList;
-	}
-	public void setForecastList(ArrayList<Forecast> forecastList) {
-		ForecastList = forecastList;
-	}
 
-	public String getID() {
-		return ID;
-	}
-	public void setID(String iD) {
-		ID = iD;
-	}
-	public String getCityName() {
-		return CityName;
-	}
-	public void setCityName(String cityName) {
-		CityName = cityName;
-	}
-	public String getCityCountry() {
-		return CityCountry;
-	}
-	public void setCityCountry(String cityCountry) {
-		CityCountry = cityCountry;
-	}
-
-
-
-	@Override
-	public String toString() {
-		return "City [ID=" + ID + ", CityName=" + CityName + ", CityCountry=" + CityCountry + ", ForecastList="
-				+ ForecastList + "]";
-	}
 	
 
 }
