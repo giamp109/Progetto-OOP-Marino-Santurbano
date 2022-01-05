@@ -23,7 +23,7 @@ public class WeatherDatabase {
 				 String url = "https://api.openweathermap.org/data/2.5/forecast?q=";
 				JSONObject Forecast = null;
 				try {
-					URLConnection OpenConnection = new URL(url+City+"&appid="+APIkey).openConnection();	
+					URLConnection OpenConnection = new URL(url+City+"&units=metric&appid="+APIkey).openConnection();	
 					InputStream in = OpenConnection.getInputStream();	
 					try {
 						InputStreamReader inR = new InputStreamReader(in);
@@ -43,13 +43,7 @@ public class WeatherDatabase {
 	}
 		/*System.out.println(Forecast);*/
 				return Forecast;		
-			}
-
-
-	
-			
-
-           
+			}       
 }
 
 
