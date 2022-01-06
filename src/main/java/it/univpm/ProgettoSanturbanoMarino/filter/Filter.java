@@ -7,19 +7,22 @@ import org.json.simple.parser.ParseException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import it.univpm.ProgettoSanturbanoMarino.service.JSONParse;
+import it.univpm.ProgettoSanturbanoMarino.service.*;
 import it.univpm.ProgettoSanturbanoMarino.model.Time;
 import it.univpm.ProgettoSanturbanoMarino.model.City;
+
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.Iterator;
 
 
-public class FilterImplements {
+public class Filter {
 	
 	    
-	public static City timeslot(String cityname,String time) throws ParseException{
+	public static City timeslot(String cityname,String time) throws ParseException, FileNotFoundException, IOException{
 
-	       City city=JSONParse.ParseCity(cityname);
+	       City city=JSONFileParser.FileParse(cityname);
 	       City filteredcity = new City(city.getId(),city.getCityname(),city.getCitycountry());
 	       LocalTime timeparsed= LocalTime.parse(time);
 		  
@@ -31,9 +34,9 @@ public class FilterImplements {
 	   }
 	     
 	     
-	public static City onedayslot(String cityname,String date) throws ParseException{
+	public static City onedayslot(String cityname,String date) throws ParseException, FileNotFoundException, IOException{
 	          
-	    	  City city=JSONParse.ParseCity(cityname);
+		      City city=JSONFileParser.FileParse(cityname);
 		      City filteredcity = new City(city.getId(),city.getCityname(),city.getCitycountry());
 		      LocalDate dateparsed= LocalDate.parse(date);
 			  
@@ -44,8 +47,8 @@ public class FilterImplements {
 			   return filteredcity;	
 	      }
 	     
-	public static City fivedaysslot(String cityname) throws ParseException{
-			return JSONParse.ParseCity(cityname);
+	public static City fivedaysslot(String cityname) throws ParseException, FileNotFoundException, IOException{
+			return JSONFileParser.FileParse(cityname);
 	    	  
 	      }
 }
