@@ -31,5 +31,20 @@ public class HumidityStats {
 		
 	}
 	
+	public static String HumidityVariance(City currentcity) {
+		double average,sumhumidity=0, variance=0, sumvariance=0;
+		for (int i=0;i<currentcity.getForecastlist().size();i++) sumhumidity+= currentcity.getForecastlist().get(i).getHumidity();
+		average=sumhumidity/currentcity.getForecastlist().size();
+		
+		for (int i=0;i<currentcity.getForecastlist().size();i++) {
+			sumvariance+=Math.pow(currentcity.getForecastlist().get(i).getHumidity()-average, 2);
+		}
+		variance=sumvariance/currentcity.getForecastlist().size();
+		variance=Math.sqrt(variance);
+		double roundnumber = Math.round(variance*100.0)/100.0;
+		String result=" Humidity Variance: "+roundnumber;
+		return result;
+	}
+	
 }
 	
