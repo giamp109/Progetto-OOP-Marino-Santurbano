@@ -10,6 +10,7 @@ import it.univpm.ProgettoSanturbanoMarino.model.*;
 
 public class HumidityStats {
 
+static String  result;
 	public static String HumidityMaxMin(City currentcity) {
 		int humiditymax=currentcity.getForecastlist().get(0).getHumidity(), humiditymin=currentcity.getForecastlist().get(0).getHumidity();
 		for(int i=1;i<currentcity.getForecastlist().size();i++) {
@@ -17,7 +18,7 @@ public class HumidityStats {
 			if (humiditymin>currentcity.getForecastlist().get(i).getHumidity())humiditymin=currentcity.getForecastlist().get(i).getHumidity();
 		}
 		
-	    String result="maximum humidity: "+humiditymax+" minimum humidity : "+humiditymin;		
+	        result="maximum humidity: "+humiditymax+" minimum humidity : "+humiditymin;		
 		return result;
 		}
 	
@@ -26,7 +27,7 @@ public class HumidityStats {
 		for (int i=0;i<currentcity.getForecastlist().size();i++) sumhumidity+= currentcity.getForecastlist().get(i).getHumidity();
 		average=sumhumidity/currentcity.getForecastlist().size();
 		
-		String result=" Humidity Average: "+average;
+	        result=" Humidity Average: "+average;
 		return result;
 		
 	}
@@ -42,7 +43,7 @@ public class HumidityStats {
 		variance=sumvariance/currentcity.getForecastlist().size();
 		variance=Math.sqrt(variance);
 		double roundnumber = Math.round(variance*100.0)/100.0;
-		String result=" Humidity Variance: "+roundnumber;
+	        result=" Humidity Variance: "+roundnumber;
 		return result;
 	}
 	
