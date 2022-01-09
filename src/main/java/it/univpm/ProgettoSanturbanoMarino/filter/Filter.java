@@ -41,16 +41,23 @@ public class Filter {
 	   }
 	     
 	     
-	public static City onedayslot(String cityname,String date) throws ParseException, FileNotFoundException, IOException{
+	public static City onedayslot(String cityname,String date) throws ParseException, FileNotFoundException, IOException, DateNotFoundException{
 	          
+		      boolean find=false;
+		      
 		      City city=JSONFileParser.FileParse(cityname);
 		      City filteredcity = new City(city.getId(),city.getCityname(),city.getCitycountry());
 		      LocalDate dateparsed= LocalDate.parse(date);
 			  
 		       for (int i=0;i<city.getForecastlist().size();i++) {			   
 				
-		    	if(city.getForecastlist().get(i).getDate().equals(dateparsed)) filteredcity.getForecastlist().add(city.getForecastlist().get(i));		   
-		       }
+		    	if(city.getForecastlist().get(i).getDate().equals(dateparsed)) 
+		    	{
+		    		filteredcity.getForecastlist().add(city.getForecastlist().get(i));		
+		    		find=true;
+		    	}
+		    	}
+		       if(!find) throw new DateNotFoundException("Date Not Found");
 			   return filteredcity;	
 	      }
 	     
