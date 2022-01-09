@@ -10,7 +10,7 @@ import java.time.LocalTime;
 import it.univpm.ProgettoSanturbanoMarino.service.*;
 import it.univpm.ProgettoSanturbanoMarino.model.Time;
 import it.univpm.ProgettoSanturbanoMarino.model.City;
-
+import it.univpm.ProgettoSanturbanoMarino.exceptions.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,16 +20,23 @@ import java.util.Iterator;
 public class Filter {
 	
 	    
-	public static City timeslot(String cityname,String time) throws ParseException, FileNotFoundException, IOException{
-
-	       City city=JSONFileParser.FileParse(cityname);
-	       City filteredcity = new City(city.getId(),city.getCityname(),city.getCitycountry());
-	       LocalTime timeparsed= LocalTime.parse(time);
+	public static City timeslot(String cityname,String time) throws ParseException, FileNotFoundException, IOException, TimeNotFoundException{
+           
+	   boolean find=false;
+	       
+       City city=JSONFileParser.FileParse(cityname);
+       City filteredcity = new City(city.getId(),city.getCityname(),city.getCitycountry());
+       LocalTime timeparsed= LocalTime.parse(time);
 		  
 	       for (int i=0;i<city.getForecastlist().size();i++) {			   
 			
-	    	if(city.getForecastlist().get(i).getTime().equals(timeparsed)) filteredcity.getForecastlist().add(city.getForecastlist().get(i));		   
+	    	if(city.getForecastlist().get(i).getTime().equals(timeparsed)) {
+	    		filteredcity.getForecastlist().add(city.getForecastlist().get(i));	
+	    		find=true;
+	    	}
 	       }
+	       
+	       if(!find) throw new TimeNotFoundException("Time Not Found");
 		   return filteredcity;	   
 	   }
 	     
