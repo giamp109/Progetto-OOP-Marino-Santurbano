@@ -1,6 +1,8 @@
 package it.univpm.ProgettoSanturbanoMarino.service;
 
 import it.univpm.ProgettoSanturbanoMarino.database.WeatherDatabase;
+import it.univpm.ProgettoSanturbanoMarino.exceptions.CityNotFoundException;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import it.univpm.ProgettoSanturbanoMarino.model.City;
@@ -13,7 +15,12 @@ import org.json.simple.JSONValue;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
+
 import java.time.format.DateTimeFormatter;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
@@ -21,7 +28,7 @@ import java.util.ArrayList;
 
 public class JSONParse {
 
-	public static City ParseCity(String CityName) throws ParseException {
+	public static City ParseCity(String CityName) throws ParseException, CityNotFoundException{
 		
 		JSONObject File = WeatherDatabase.getForecast(CityName);
 		Time temporary;
@@ -77,7 +84,8 @@ public class JSONParse {
 
 		return newcity;
 	}
-	
+
+
 	
 
 	
