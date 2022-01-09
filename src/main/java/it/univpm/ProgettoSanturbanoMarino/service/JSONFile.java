@@ -1,6 +1,7 @@
 package it.univpm.ProgettoSanturbanoMarino.service;
 
 import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
@@ -10,11 +11,12 @@ import org.json.simple.parser.ParseException;
 
 import java.util.ArrayList;
 import it.univpm.ProgettoSanturbanoMarino.database.WeatherDatabase;
+import it.univpm.ProgettoSanturbanoMarino.exceptions.CityNotFoundException;
 import it.univpm.ProgettoSanturbanoMarino.model.*;
 
 public class JSONFile {
 	
-	public static String saveJSON(String cityname) throws ParseException {
+	public static String saveJSON(String cityname) throws ParseException, CityNotFoundException, FileNotFoundException {
 		
 		City currentcity=JSONParse.ParseCity(cityname);
 		
@@ -45,10 +47,11 @@ public class JSONFile {
 		object.put("Weather",temparray);
 		
 		try{
+
 			
-			PrintWriter outputfile = new PrintWriter(new BufferedWriter(new FileWriter(path)));
-						
+			PrintWriter outputfile = new PrintWriter(new BufferedWriter(new FileWriter(path)));			
 			outputfile.println(object.toString());
+			outputfile.println("\n");
 			outputfile.close();
 			
 		}
