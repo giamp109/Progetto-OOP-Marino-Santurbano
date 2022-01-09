@@ -79,24 +79,6 @@ public class JSONParse {
 	}
 	
 	
-	public static ArrayList<Integer> getHumidity(JSONObject File){
-		
-		ArrayList<Integer> hu = new ArrayList<Integer>();
 
-		JSONArray HuArray = (JSONArray) File.get("list"); 
-		
-		for (int i=0; i<HuArray.size();i++) {
-
-			JSONObject List = (JSONObject) HuArray.get(i);
-			JSONObject Main = (JSONObject) List.get("main");
-			
-			long temporary = (long)Main.get("humidity");
-			int Humidity = (int)temporary;
-		    hu.add(Humidity);
-			
-		}
-		
-		return hu; 
-	}
 	
 }
