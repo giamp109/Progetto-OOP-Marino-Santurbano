@@ -69,4 +69,29 @@ public class JSONFileCurrent {
 		
 return path;
 	}
+	
+	
+
+	public static JSONObject arrayupdate(String cityname) throws CityNotFoundException {
+	
+	
+		JSONObject databasecurrent=WeatherDatabaseCurrent.getForecastCurrent(cityname);	
+		JSONObject main=(JSONObject) databasecurrent.get("main");	
+		JSONArray weatherarray=(JSONArray) databasecurrent.get("weather");	
+		JSONObject weather=(JSONObject) weatherarray.get(0);
+		JSONObject weatherapp= new JSONObject();
+
+		weatherapp.put("dt", databasecurrent.get("dt").toString());
+		weatherapp.put("temp",main.get("temp").toString());
+		weatherapp.put("temp_max",main.get("temp_max").toString());
+		weatherapp.put("temp_min",main.get("temp_min").toString());
+		weatherapp.put("feels_like",main.get("feels_like").toString());
+		weatherapp.put("humidity",main.get("humidity").toString());
+		weatherapp.put("main", weather.get("main").toString());
+		weatherapp.put("description", weather.get("description").toString());
+		
+	
+	return weatherapp;
+	
+}
 }
