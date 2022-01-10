@@ -14,10 +14,29 @@ import java.util.concurrent.TimeUnit;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 
+/**
+*
+* @author Davide Santurbano
+* @author Giampaolo Marino
+*
+* La classe JSONFileCurrent contiene il metodo per creare il JSONObject con le informazion di interesse a partire dal JSONObject ricavato
+* dal metodo 'getForecastCurrent()' della classe WeatherDatabaseCurrent.
+*/
+
 public class JSONFileCurrent {
 	
 	static JSONArray array=new JSONArray ();
 	
+	/**
+	* Il metodo 'saveJSONCurrent()' permette di creare il JSONObject con le informazioni di interesse riguardo le previsioni meteo e
+	* di trascrivere quest'ultimo sul file denominato 'citynamecurrent.txt'. Il codice relativo al JSONArray e la scrittura su file è implementato
+	* all'interno di un file che permette quindi l'aggiornamento delle previsioni meteo ogni ora.
+	*
+	* @param String cityname utilizzato per ricavare il JSONObject dal metodo 'getForecastCurrent()' e per settare il nome del file
+	* in cui il JSONObject con le informazioni utili viene trascritto
+	*
+	* @return path che rappresenta la destinazione dove il file viene salvato.
+	*/	
 	public static String saveJSONCurrent(String cityname) throws ParseException, CityNotFoundException{
 		
 		JSONObject currentfile=new JSONObject();
@@ -71,7 +90,14 @@ return path;
 	}
 	
 	
-
+/**
+*
+* Il metodo 'arrayupdate()' permette di creare un JSONObject con le informazioni del meteo (esempio temperatura,temperatura minima...) di una determinata città.
+* Questo metodo viene richiamato in 'saveJSONCurrent()' per aggiornare le previsioni meteo ogni ora.
+*
+* @param String cityname rappresenta la città di interesse
+* @return JSONObject weatherapp contenente le previsioni meteo 
+*/
 	public static JSONObject arrayupdate(String cityname) throws CityNotFoundException {
 	
 	
