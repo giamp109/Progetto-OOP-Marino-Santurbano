@@ -37,80 +37,15 @@ public class WeatherController {
 		SpringApplication.run(WeatherController.class, args);
 	}
 	
-	@GetMapping("/getCurrentWeather")
-	public ResponseEntity<Object> getForecastCurrent(@RequestParam (value="CityName", defaultValue="Ancona")String CityName) throws ParseException, FileNotFoundException, IOException{		
-		try {
-			return new ResponseEntity<>(JSONFileCurrentParser.FileCurrentParse(CityName), HttpStatus.OK);
-		}catch(FileNotFoundException e) {
-			return new ResponseEntity<>("Invalid City Name", HttpStatus.OK);
-		}
-	}
-
-	@GetMapping("/getForecastWeather")
-	public ResponseEntity<Object> getForecast(@RequestParam (value="CityName", defaultValue="Ancona")String CityName) throws ParseException, IOException{		
-		try {
-			return new ResponseEntity<>(JSONFileParser.FileParse(CityName), HttpStatus.OK);
-		}catch (FileNotFoundException e) {
-			return new ResponseEntity<>("Invalid City Name", HttpStatus.BAD_REQUEST);
-		}
-	}
 	
-	/*filter fascia orarira*/
-	@GetMapping("/filterTime")
-	public ResponseEntity<Object> getfilterTime(@RequestParam(value="CityName", defaultValue="Ancona")String CityName, @RequestParam(value="Time", defaultValue="12:00")String Time) throws ParseException, FileNotFoundException, IOException, TimeNotFoundException   {
-		try {
-			return new ResponseEntity<>(Filter.timeslot(CityName, Time), HttpStatus.OK);
-		}catch(TimeNotFoundException e) {
-			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
-		}
-	}
+	/**
+	*
+	* La rotta di tipo GET '/saveJSON' restituisce le directory nelle quali vengono salvati due file 'CityNameCurrent.txt' e 'CityName.txt'.
+	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo
+	* @return path 'CityName.txt' e 'CityNameCurrent.txt'
+	*
+	*/
 	
-	/*filter 1 giorno */
-	@GetMapping("/filterOneDay")
-	public ResponseEntity<Object> getfilterOneDay(@RequestParam(value="CityName", defaultValue="Ancona")String CityName, @RequestParam(value="Date", defaultValue="2022-01-06")String Date) throws ParseException, FileNotFoundException, IOException, DateNotFoundException   {
-		try {
-			return new ResponseEntity<>(Filter.onedayslot(CityName, Date), HttpStatus.OK);
-		}catch(DateNotFoundException e ) {
-			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-	/*filter 5 giorni */
-	@GetMapping("/filterFiveDays")
-	public ResponseEntity<Object> getfilterFiveDays(@RequestParam(value="CityName", defaultValue="Ancona")String CityName) throws ParseException, FileNotFoundException, IOException   {
-		return new ResponseEntity<>(Filter.fivedaysslot(CityName), HttpStatus.OK);
-	}
-		
-	/*stats fascia oraria*/
-	@GetMapping("/HumidityStatsTime")
-	public ResponseEntity<Object> HumidityStatsTime(@RequestParam(value="CityName", defaultValue="Ancona")String CityName, @RequestParam(value="Time", defaultValue="12:00")String Time) throws ParseException, FileNotFoundException, IOException, TimeNotFoundException   {
-		try {
-			String stats=HumidityStats.HumidityMaxMin(Filter.timeslot(CityName, Time))+HumidityStats.HumidityAverage(Filter.timeslot(CityName, Time))+HumidityStats.HumidityVariance(Filter.timeslot(CityName, Time));
-			return new ResponseEntity<>(stats, HttpStatus.OK);
-		}catch(TimeNotFoundException e) {
-			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-	/*stats 1 giorno */
-	@GetMapping("/HumidityStatsOneDay")
-	public ResponseEntity<Object> HumidityStatsOneDay(@RequestParam(value="CityName", defaultValue="Ancona")String CityName, @RequestParam(value="Date", defaultValue="2022-01-05")String Date) throws ParseException, FileNotFoundException, IOException, DateNotFoundException  {
-		try {
-			String stats=HumidityStats.HumidityMaxMin(Filter.onedayslot(CityName, Date))+HumidityStats.HumidityAverage(Filter.onedayslot(CityName, Date))+HumidityStats.HumidityVariance(Filter.onedayslot(CityName, Date));
-			return new ResponseEntity<>(stats, HttpStatus.OK);
-		}catch(DateNotFoundException e) {
-			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
-		}
-	}
-	
-	/*stats 5 giorni */
-	@GetMapping("/HumidityStatsFiveDays")
-	public ResponseEntity<Object> HumidityStatsFiveDays(@RequestParam(value="CityName", defaultValue="Ancona")String CityName) throws ParseException, FileNotFoundException, IOException   {
-		String stats=HumidityStats.HumidityMaxMin(Filter.fivedaysslot(CityName))+HumidityStats.HumidityAverage(Filter.fivedaysslot(CityName))+HumidityStats.HumidityVariance(Filter.fivedaysslot(CityName));
-		return new ResponseEntity<>(stats, HttpStatus.OK);
-	}
-	
-	/*salvataggio file JSON in locale con le previsioni meteo prese dall' API current e forecast 5day/3hours*/
 	@GetMapping("/saveJSON")
 	public ResponseEntity<Object> saveJSONCurrent(@RequestParam (value="CityName", defaultValue="Ancona")String CityName) throws ParseException, CityNotFoundException, FileNotFoundException{		
 		try {
@@ -121,7 +56,171 @@ public class WeatherController {
 		}
 	}
 	
-	/*errore tra forecast e attuale*/	
+	
+	/**
+	*
+	* La rotta di tipo GET '/getCurrentWeather' restituisce le previsioni meteo di un determinata città (Ancona di dafault) leggendo le informazioni 
+	* dal file 'CityNameCurrent.txt'.
+	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo 
+	* @return CityObject
+	*
+	*/
+	
+	@GetMapping("/getCurrentWeather")
+	public ResponseEntity<Object> getForecastCurrent(@RequestParam (value="CityName", defaultValue="Ancona")String CityName) throws ParseException, FileNotFoundException, IOException{		
+		try {
+			return new ResponseEntity<>(JSONFileCurrentParser.FileCurrentParse(CityName), HttpStatus.OK);
+		}catch(FileNotFoundException e) {
+			return new ResponseEntity<>("Invalid City Name", HttpStatus.OK);
+		}
+	}
+	
+	
+	/**
+	*
+	* La rotta di tipo GET '/getForecastWeather' restituisce le previsioni meteo di una determinata città (Ancona di default) a partire
+	* dal momento corrispondente della chiamata fino ai 5 giorni seguenti ogni 3 ore leggendo le infarmazioni dal file 'CityName.txt'
+	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo 
+	* @return CityObject
+	* 
+	*/
+	
+	@GetMapping("/getForecastWeather")
+	public ResponseEntity<Object> getForecast(@RequestParam (value="CityName", defaultValue="Ancona")String CityName) throws ParseException, IOException{		
+		try {
+			return new ResponseEntity<>(JSONFileParser.FileParse(CityName), HttpStatus.OK);
+		}catch (FileNotFoundException e) {
+			return new ResponseEntity<>("Invalid City Name", HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	/**
+	*
+	* La rotta di tipo GET '/filterTime' restituisce le previsioni meteo di un determinata città (Ancona di default) ad una fascia oraria richiesta 
+	* leggendo le informazioni dal file 'CityName.txt'.
+	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo 
+	* @param Time rappresente la fascia oraria di cui si vogliono conoscere le previsioni meteo
+	* @return CityObject
+	*
+	*/
+	
+	@GetMapping("/filterTime")
+	public ResponseEntity<Object> getfilterTime(@RequestParam(value="CityName", defaultValue="Ancona")String CityName, @RequestParam(value="Time", defaultValue="12:00")String Time) throws ParseException, FileNotFoundException, IOException, TimeNotFoundException   {
+		try {
+			return new ResponseEntity<>(Filter.timeslot(CityName, Time), HttpStatus.OK);
+		}catch(TimeNotFoundException e) {
+			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	/**
+	*
+	* La rotta di tipo GET '/filterOneDay' restituisce le previsioni meteo di un determinata città (Ancona di default) di una data richiesta
+	* leggendo le informazioni dal file 'CityName.txt'.
+	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo 
+	* @param Date rappresente la data di cui si vogliono conoscere le previsioni meteo
+	* @return CityObject
+	*
+	*/
+	
+	@GetMapping("/filterOneDay")
+	public ResponseEntity<Object> getfilterOneDay(@RequestParam(value="CityName", defaultValue="Ancona")String CityName, @RequestParam(value="Date", defaultValue="2022-01-06")String Date) throws ParseException, FileNotFoundException, IOException, DateNotFoundException   {
+		try {
+			return new ResponseEntity<>(Filter.onedayslot(CityName, Date), HttpStatus.OK);
+		}catch(DateNotFoundException e ) {
+			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	/**
+	*
+	* La rotta di tipo GET '/filterFiveDays' restituisce le previsioni meteo di un determinata città (Ancona di default) per 5 giorni ogni 3 ore  
+	* a partire dal momento della chiamata leggendo le informazioni dal file 'CityName.txt'.
+	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo 
+	* @return CityObject
+	*
+	*/
+	
+	@GetMapping("/filterFiveDays")
+	public ResponseEntity<Object> getfilterFiveDays(@RequestParam(value="CityName", defaultValue="Ancona")String CityName) throws ParseException, FileNotFoundException, IOException   {
+		return new ResponseEntity<>(Filter.fivedaysslot(CityName), HttpStatus.OK);
+	}
+		
+	
+	/**
+	*
+	* La rotta di tipo GET '/HumidityStatsTime' restituisce le statistiche rigurdanti il valore di umidità di un determinata città (Ancona di default) 
+	* ad una fascia oraria richiesta leggendo l einrmazioni dal file 'CityName.txt'.
+	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo 
+	* @param Time rappresente la fascia oraria di cui si vogliono conoscere le previsioni meteo
+	* @return CityObject
+	*
+	*/
+	
+	@GetMapping("/HumidityStatsTime")
+	public ResponseEntity<Object> HumidityStatsTime(@RequestParam(value="CityName", defaultValue="Ancona")String CityName, @RequestParam(value="Time", defaultValue="12:00")String Time) throws ParseException, FileNotFoundException, IOException, TimeNotFoundException   {
+		try {
+			String stats=HumidityStats.HumidityMaxMin(Filter.timeslot(CityName, Time))+HumidityStats.HumidityAverage(Filter.timeslot(CityName, Time))+HumidityStats.HumidityVariance(Filter.timeslot(CityName, Time));
+			return new ResponseEntity<>(stats, HttpStatus.OK);
+		}catch(TimeNotFoundException e) {
+			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	
+	/**
+	*
+	* La rotta di tipo GET '/HumidityStatsOneDay' restituisce le statistiche rigurdanti il valore di umidità di un determinata città (Ancona di default) 
+	* alla data richiesta leggendo le informazioni dal file 'CityName.txt'.
+	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo 
+	* @param Date rappresente la data di cui si vogliono conoscere le previsioni meteo
+	* @return CityObject
+	*
+	*
+	*/
+	
+	@GetMapping("/HumidityStatsOneDay")
+	public ResponseEntity<Object> HumidityStatsOneDay(@RequestParam(value="CityName", defaultValue="Ancona")String CityName, @RequestParam(value="Date", defaultValue="2022-01-05")String Date) throws ParseException, FileNotFoundException, IOException, DateNotFoundException  {
+		try {
+			String stats=HumidityStats.HumidityMaxMin(Filter.onedayslot(CityName, Date))+HumidityStats.HumidityAverage(Filter.onedayslot(CityName, Date))+HumidityStats.HumidityVariance(Filter.onedayslot(CityName, Date));
+			return new ResponseEntity<>(stats, HttpStatus.OK);
+		}catch(DateNotFoundException e) {
+			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+
+	/**
+	*
+	* La rotta di tipo GET '/HumidityStatsFiveDays' restituisce le statistiche rigurdanti il valore di umidità di un determinata città (Ancona di default) 
+	* per 5 giorni ogni 3 ore a partire dal momento della chiamata leggendo le informazioni dal file 'CityName.txt'.
+	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo 
+	* @return CityObject
+	*
+	*/
+	
+	@GetMapping("/HumidityStatsFiveDays")
+	public ResponseEntity<Object> HumidityStatsFiveDays(@RequestParam(value="CityName", defaultValue="Ancona")String CityName) throws ParseException, FileNotFoundException, IOException   {
+		String stats=HumidityStats.HumidityMaxMin(Filter.fivedaysslot(CityName))+HumidityStats.HumidityAverage(Filter.fivedaysslot(CityName))+HumidityStats.HumidityVariance(Filter.fivedaysslot(CityName));
+		return new ResponseEntity<>(stats, HttpStatus.OK);
+	}
+	
+	
+	/**
+	*
+	* La rotta di tipo GET '/ErrorCurrentForecast' restituisce l'errore matematico tra i valori delle previsioni meteo salvate
+	* nel file 'CityNameCurrent.txt' e i valori delle previsioni meteo salvate nel file 'CityName.txt' rispetto ad una
+	* determinata data e una determinata ora.
+	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo 
+	* @param Date rappresente la data di cui si vogliono conoscere le previsioni meteo
+	* @param Time rappresente la fascia oraria di cui si vogliono conoscere le previsioni meteo
+	* @return String contenente i valori di errore calcolati
+	*
+	*/
+		
 	@GetMapping("/ErrorCurrentForecast")
 	public ResponseEntity<Object> getErrorForecastCurrent(@RequestParam (value="CityName", defaultValue="Ancona")String CityName, @RequestParam(value="Date", defaultValue="2022-01-07")String Date, @RequestParam(value="Time", defaultValue="18:00")String Time) throws ParseException, FileNotFoundException, IOException{			
 		try {
