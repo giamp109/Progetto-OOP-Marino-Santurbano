@@ -5,10 +5,28 @@ import it.univpm.ProgettoSanturbanoMarino.exceptions.TimeNotFoundException;
 import it.univpm.ProgettoSanturbanoMarino.model.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+
+/**
+*
+* @author Davide Santurbano
+* @author Giampaolo Marino
+*
+* La classe ErrorForecastCurrent mette a disposizione un metodo per il calcolo dell'errore dei valori delle previsioni meteo 
+* tra l'API 5 day / 3 hour Forecast e l'API Current weather data.
+*/
 public class ErrorForecastCurrent {
 
-
-	
+	/**
+	*
+	* Il 'metodo ErrorCalculator()' calcola l'errore tra le due API utilizzate nel programma ovvero 5 day / 3 hour forecast e la Current weather data. 
+	* L'errore viene calcolato sulla temperatura, temperatura massima, temperatura minima, temperatura percepita e sull'umidità, in base alla data e l'orario.
+	*
+	* @param currentcity rappresenta l'oggetto di tipo città creato leggendo il file 'citynamecurrent.txt'. 
+	* @param forecastcity rappresenta l'oggetto di tipo città creato leggendo il file 'cityname.txt'.
+	* @param String date rappresenta la data in cui si vuole calcolare tale errore.
+	* @param String time rappresenta l'orario in cui si vuole calcolare tale errore.
+	* @return String con i valori degli errori calcolati.
+	*/
 	public static String ErrorCalculator(City currentcity,City forecastcity,String date,String time) {
 		
 		LocalDate supportdate= LocalDate.parse(date);
