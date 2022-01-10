@@ -20,8 +20,8 @@ import it.univpm.ProgettoSanturbanoMarino.exceptions.*;
 * @author Davide Santurbano
 * @author Giampaolo Marino
 *
-* La classe JSONFileCurrentParser contiene il metodo per effettuare il parsing delle informazioni prese dal file 'citynamecurrent.txt' e creare un oggetto City
-* 
+* La classe JSONFileCurrentParser contiene il metodo per effettuare il parsing delle informazioni prese dal file 'citynamecurrent.txt' 
+* contentente le informazioni riguardo al Current Weather Data e creare un oggetto City.
 */
 public class JSONFileCurrentParser {
 	
