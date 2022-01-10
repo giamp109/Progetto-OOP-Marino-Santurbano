@@ -26,8 +26,24 @@ import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+*
+* @author Davide Santurbano
+* @author Giampaolo Marino
+*
+* La JSONParse contiene il metodo che permette di effettuare il parsing direttamente dal JSONObject ricavato dalla chiamata dell'API 5 day / 3 hour Forecast
+* creando un oggetto di tipo City. 
+*/
 public class JSONParse {
 
+	/**
+	*
+	* Il metodo 'ParseCity()' chiama il metodo 'getForecast()' della classe 'WeatherDatabase' ottenendo un JSONObject di cui effettua il parsing
+	* e crea l'oggetto di tipo City
+	*
+	* @param String CityName che rappresenta la città di cui si vuole ottenere le previsioni meteo
+	* @return City newcity 
+	*/
 	public static City ParseCity(String CityName) throws ParseException, CityNotFoundException{
 		
 		JSONObject File = WeatherDatabase.getForecast(CityName);
@@ -48,8 +64,8 @@ public class JSONParse {
 
 		prov=(long)(CityInfo.get("id"));
 		cityid=Long.toString(prov);
-        cityname=(String)(CityInfo.get("name"));
-        citycountry=(String)(CityInfo.get("country"));
+        	cityname=(String)(CityInfo.get("name"));
+        	citycountry=(String)(CityInfo.get("country"));
         
 		City newcity= new City(cityid,cityname,citycountry);
 
@@ -66,19 +82,19 @@ public class JSONParse {
 			
 			humidity = Integer.parseInt(main.get("humidity").toString());
 			
-       		temp=Double.parseDouble(main.get("temp").toString());
+       			temp=Double.parseDouble(main.get("temp").toString());
 			tempmin=Double.parseDouble(main.get("temp_min").toString());
 			tempmax=Double.parseDouble(main.get("temp_max").toString());
 			feelslike=Double.parseDouble(main.get("feels_like").toString());
 			
-		    datetime = LocalDateTime.parse(list.get("dt_txt").toString(), formatter);
+		    	datetime = LocalDateTime.parse(list.get("dt_txt").toString(), formatter);
 			date = datetime.toLocalDate();
 			time = datetime.toLocalTime();
 			mainweather=(String)weather.get("main");
 			description=(String)weather.get("description");	
 			
 			temporary= new Time(humidity,mainweather,description,temp,tempmin,tempmax,feelslike,date,time);
-            newcity.getForecastlist().add(temporary);	
+            		newcity.getForecastlist().add(temporary);	
             
 		}
 
