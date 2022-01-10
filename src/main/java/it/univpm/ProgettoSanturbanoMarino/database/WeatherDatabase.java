@@ -38,11 +38,11 @@ public class WeatherDatabase {
 	public static JSONObject getForecast(String City) throws CityNotFoundException {
 		String data = "";
 		String line = "";
-		String APIkey="839a51d0900812c291d2ba48954f3052";
+		String APIkey = "839a51d0900812c291d2ba48954f3052";
 		String url = "https://api.openweathermap.org/data/2.5/forecast?q=";
 		JSONObject Forecast = null;
 		try {
-			URLConnection OpenConnection = new URL(url+City+"&units=metric&appid="+APIkey).openConnection();	
+			URLConnection OpenConnection = new URL(url+City + "&units=metric&appid=" + APIkey).openConnection();	
 			InputStream in = OpenConnection.getInputStream();	
 		try {
 			InputStreamReader inR = new InputStreamReader(in);
@@ -54,7 +54,7 @@ public class WeatherDatabase {
 		}finally {
 			in.close();
 		}
-		Forecast=(JSONObject) JSONValue.parseWithException(data);
+		Forecast = (JSONObject) JSONValue.parseWithException(data);
 		}catch (IOException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
