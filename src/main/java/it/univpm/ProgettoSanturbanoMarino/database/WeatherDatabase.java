@@ -26,15 +26,15 @@ import  it.univpm.ProgettoSanturbanoMarino.exceptions.*;
 
 public class WeatherDatabase {
 		   
-/**
-*
-* Il metodo getForecast() effettua la connessione con l'API '5 Day / 3 Hour Forecast'. 
-* 
-* @param City che rappresenta il nome della città di cui vogliamo ottenere
-* @return JSONObject contenente le informazioni meteo della città specificata
-*
-*/
-
+	/**
+	*
+	* Il metodo getForecast() effettua la connessione con l'API '5 Day / 3 Hour Forecast'. 
+	* 
+	* @param City che rappresenta il nome della città di cui vogliamo ottenere
+	* @return JSONObject contenente le informazioni meteo della città specificata
+	*
+	*/
+	
 	public static JSONObject getForecast(String City) throws CityNotFoundException {
 		String data = "";
 		String line = "";
