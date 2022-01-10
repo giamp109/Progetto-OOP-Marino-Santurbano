@@ -4,7 +4,7 @@ package it.univpm.ProgettoSanturbanoMarino.exceptions;
 *
 * @author Davide Santurbano
 * @author Giampaolo Marino
-* La classe TimeeNotFoundException contiene il metodo che segnala l'eccezione in caso di orario non trovato.
+* La classe TimeNotFoundException contiene il metodo che segnala l'eccezione in caso di orario non trovato.
 * 
 */
 public class TimeNotFoundException extends Exception {
