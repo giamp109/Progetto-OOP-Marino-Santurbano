@@ -1,15 +1,15 @@
 package it.univpm.ProgettoSanturbanoMarino.database;
 
 import it.univpm.ProgettoSanturbanoMarino.exceptions.CityNotFoundException;
-import  it.univpm.ProgettoSanturbanoMarino.model.City;
+import it.univpm.ProgettoSanturbanoMarino.model.City;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+
 import java.net.URL;
 import java.net.URLConnection;
-
 
 import org.json.simple.JSONValue;
 import org.json.simple.JSONObject;
@@ -37,11 +37,11 @@ public class WeatherDatabaseCurrent {
 	public static JSONObject getForecastCurrent(String City) throws CityNotFoundException {
 		String data = "";
 		String line = "";
-		String APIkey="839a51d0900812c291d2ba48954f3052";
+		String APIkey = "839a51d0900812c291d2ba48954f3052";
 		String url = "https://api.openweathermap.org/data/2.5/weather?q=";
 		JSONObject Forecast = null;
 		try {
-			URLConnection OpenConnection = new URL(url+City+"&units=metric&appid="+APIkey).openConnection();	
+			URLConnection OpenConnection = new URL(url+City + "&units=metric&appid=" + APIkey).openConnection();	
 			InputStream in = OpenConnection.getInputStream();	
 		try {
 			InputStreamReader inR = new InputStreamReader(in);
@@ -53,7 +53,7 @@ public class WeatherDatabaseCurrent {
 		}finally {
 			in.close();
 		}
-		Forecast=(JSONObject) JSONValue.parseWithException(data);
+		Forecast = (JSONObject) JSONValue.parseWithException(data);
 		}catch (IOException  e) {
 			e.printStackTrace();
 		} catch (Exception e) {
