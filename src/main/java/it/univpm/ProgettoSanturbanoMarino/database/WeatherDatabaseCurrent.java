@@ -14,10 +14,27 @@ import java.net.URLConnection;
 import org.json.simple.JSONValue;
 import org.json.simple.JSONObject;
 
+/**
+*
+* @author Davide Santurbano
+* @author Giampaolo Marino
+*
+* La classe WeatherDatabaseCurrent continene la connessione con l'API 'Current Weather Data' .
+*
+*/
 
 public class WeatherDatabaseCurrent {
 	
-        public static JSONObject getForecastCurrent(String City) throws CityNotFoundException {
+	/**
+	* Il metodo getForecastCurrent() effettua la connessione con l'API 'Current Weather Data' e restituisce
+	* le informazioni meteo rispetto alla città presa in considerazione.
+	* 
+	* @param City rappresenta la città di cui si vogliono ottenere le previsioni meteo.
+	* @return JSONObject contenente le previsioni meteo della citta presa in considerazione.
+	*
+	*/
+       
+	public static JSONObject getForecastCurrent(String City) throws CityNotFoundException {
 		 String data = "";
 		 String line = "";
 		 String APIkey="839a51d0900812c291d2ba48954f3052";
