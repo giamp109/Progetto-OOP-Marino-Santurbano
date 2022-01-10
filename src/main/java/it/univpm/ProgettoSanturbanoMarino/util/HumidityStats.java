@@ -26,15 +26,17 @@ static String result;
 	* @return String result contenente il valore massimo e il valore minimo dell'umidità.
 	*/
 	public static String HumidityMaxMin(City currentcity) {
-		int humiditymax=currentcity.getForecastlist().get(0).getHumidity(), humiditymin=currentcity.getForecastlist().get(0).getHumidity();
-		for(int i=1;i<currentcity.getForecastlist().size();i++) {
-			if (humiditymax<currentcity.getForecastlist().get(i).getHumidity())humiditymax=currentcity.getForecastlist().get(i).getHumidity();
-			if (humiditymin>currentcity.getForecastlist().get(i).getHumidity())humiditymin=currentcity.getForecastlist().get(i).getHumidity();
+		int humiditymax = currentcity.getForecastlist().get(0).getHumidity(), humiditymin = currentcity.getForecastlist().get(0).getHumidity();
+		for(int i = 1; i < currentcity.getForecastlist().size(); i++) {
+			if (humiditymax < currentcity.getForecastlist().get(i).getHumidity())
+				humiditymax = currentcity.getForecastlist().get(i).getHumidity();
+			if (humiditymin > currentcity.getForecastlist().get(i).getHumidity())
+				humiditymin = currentcity.getForecastlist().get(i).getHumidity();
 		}
 		
-	        result="maximum humidity: "+humiditymax+" minimum humidity : "+humiditymin;		
+	        result = "maximum humidity: " + humiditymax + " minimum humidity : " + humiditymin;		
 		return result;
-		}
+	}
 	
 	/**
 	*
@@ -44,13 +46,13 @@ static String result;
 	* @return String result, contenente il valore della media dell'umidità.
 	*/
 	public static String HumidityAverage(City currentcity) {
-		double average,sumhumidity=0;
-		for (int i=0;i<currentcity.getForecastlist().size();i++) sumhumidity+= currentcity.getForecastlist().get(i).getHumidity();
-		average=sumhumidity/currentcity.getForecastlist().size();
+		double average, sumhumidity = 0;
+		for (int i = 0; i < currentcity.getForecastlist().size(); i++)
+			sumhumidity += currentcity.getForecastlist().get(i).getHumidity();
+		average = sumhumidity/currentcity.getForecastlist().size();
 		
-	        result=" Humidity Average: "+average;
-		return result;
-		
+	        result = " Humidity Average: " + average;
+		return result;	
 	}
 	
 	/**
@@ -61,19 +63,19 @@ static String result;
 	* @return String result, contenente il valore della varianza dell'umidità.
 	*/
 	public static String HumidityVariance(City currentcity) {
-		double average,sumhumidity=0, variance=0, sumvariance=0;
-		for (int i=0;i<currentcity.getForecastlist().size();i++) sumhumidity+= currentcity.getForecastlist().get(i).getHumidity();
-		average=sumhumidity/currentcity.getForecastlist().size();
+		double average, sumhumidity = 0, variance = 0, sumvariance = 0;
+		for (int i = 0; i < currentcity.getForecastlist().size(); i++) 
+			sumhumidity += currentcity.getForecastlist().get(i).getHumidity();
+		average = sumhumidity/currentcity.getForecastlist().size();
 		
-		for (int i=0;i<currentcity.getForecastlist().size();i++) {
-			sumvariance+=Math.pow(currentcity.getForecastlist().get(i).getHumidity()-average, 2);
-		}
-		variance=sumvariance/currentcity.getForecastlist().size();
-		variance=Math.sqrt(variance);
+		for (int i = 0; i < currentcity.getForecastlist().size(); i++) 
+			sumvariance += Math.pow(currentcity.getForecastlist().get(i).getHumidity() - average, 2);
+		
+		variance = sumvariance/currentcity.getForecastlist().size();
+		variance = Math.sqrt(variance);
 		double roundnumber = Math.round(variance*100.0)/100.0;
-	        result=" Humidity Variance: "+roundnumber;
+	        result = " Humidity Variance: " + roundnumber;
 		return result;
-	}
-	
+	}	
 }
 	
