@@ -1,17 +1,26 @@
 package it.univpm.ProgettoSanturbanoMarino.model;
+
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+*
+* @author Davide Santurbano
+* @author Giampaolo Marino
+* La classe Time contiene il metodo che segnala l'eccezione in caso di data non trovata.
+* 
+*/
 public class Time extends Temperature{
 	
 	LocalDate date;
-    LocalTime time;
-	public Time(int humidity, String main, String description, double temperature, double temperaturemin,double temperaturemax, double feelslike,LocalDate date,LocalTime time) {
+	LocalTime time;
+	
+	public Time(int humidity, String main, String description, double temperature, double temperaturemin, double temperaturemax, double feelslike, LocalDate date, LocalTime time) {
 		super(humidity, main, description, temperature, temperaturemin, temperaturemax, feelslike);
-		this.date=date;
-		this.time=time;
+		this.date = date;
+		this.time = time;
 	}
 	public LocalDate getDate() {
 		return date;
@@ -25,8 +34,4 @@ public class Time extends Temperature{
 	public void setTime(LocalTime time) {
 		this.time = time;
 	}
-
-
-	
-	
 }
