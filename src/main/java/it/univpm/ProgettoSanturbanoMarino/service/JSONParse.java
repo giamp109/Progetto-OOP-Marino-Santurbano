@@ -58,7 +58,7 @@ public class JSONParse {
 		LocalTime time;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		
-		/*Parsing of informations about the city*/
+		/* Parsing delle informazioni riguardanti la città ovvero Nome,Stato e ID */
         
 		JSONObject CityInfo= (JSONObject) File.get("city");
 
@@ -69,7 +69,7 @@ public class JSONParse {
         
 		City newcity= new City(cityid,cityname,citycountry);
 
-		/*Parsing informations about forecast saved in the City entity's ArrayList */
+		/* Parsing delle informazioni riguardanti il meteo della città salvate all'interno dell'ArrayList ForecastList */
 
 		JSONArray forecastarray = (JSONArray) File.get("list");  
 
