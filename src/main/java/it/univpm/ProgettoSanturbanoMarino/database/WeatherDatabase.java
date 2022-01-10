@@ -15,9 +15,25 @@ import org.json.simple.JSONObject;
 
 import  it.univpm.ProgettoSanturbanoMarino.exceptions.*;
 
+/**
+*
+* @author Davide Santurbano
+* @author Giampaolo Marino
+*
+* La classe WeatherDatabase continene la connessione con l'API Forecast 5days/3hours.
+*
+*/
+
 public class WeatherDatabase {
 		   
-			
+			/**
+			*
+			* Il metodo getForecast() effettua la connessione con l'API '5 Day / 3 Hour Forecast'. 
+			* 
+			* @param City che rappresenta il nome della città di cui vogliamo ottenere
+			* @return JSONObject contenente le informazioni meteo della città specificata
+			*
+			*/
 			
 			public static JSONObject getForecast(String City) throws CityNotFoundException {
 				 String data = "";
