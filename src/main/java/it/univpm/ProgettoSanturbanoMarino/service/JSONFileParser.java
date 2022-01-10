@@ -12,9 +12,24 @@ import org.json.simple.parser.ParseException;
 import it.univpm.ProgettoSanturbanoMarino.model.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-
+/**
+*
+* @author Davide Santurbano
+* @author Giampaolo Marino
+*
+* La classe JSONFileParser contiene il metodo per effettuare il parsing delle informazioni prese dal file 'cityname.txt' e creare un oggetto City.
+* Le informazioni all'interno di 'cityname.txt' riguardano il 5 day / 3 hour Forecast.
+*/
 public class JSONFileParser {
-	   
+	
+	/**
+	* Il metodo 'FileParse()' permette di effettuare il parsing delle informazioni prese dal file 'cityname.txt' e creare l'oggetto City
+	* con tutte le informazioni riguardanti le previsioni meteo. 
+	* 
+	* @param String cityname utilizzato per aprire il corretto file in lettura.
+	* @return City parsedcity.
+	* 
+	*/
 	public static City FileParse(String cityname) throws FileNotFoundException, IOException, ParseException {
 
 		String id,name,country,main,description;
