@@ -56,6 +56,40 @@ public class WeatherController {
 		}
 	}
 	
+	/**
+	*
+	* La rotta di tipo GET '/WeatherCurrent' restituisce le previsioni meteo di una determinata città (Ancona di default) 
+	* leggendo le informazioni dal JSONObject ricavato dall'API.
+	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo
+	* @return CityObject
+	*
+	*/
+	@GetMapping("/WeatherCurrent")
+	public ResponseEntity<Object> WeatherCurrent(@RequestParam(value="CityName", defaultValue="Ancona")String CityName) throws ParseException, CityNotFoundException{
+		try {
+		return new ResponseEntity<>(JSONParseCurrent.ParseCity(CityName),HttpStatus.OK);
+		}
+		catch(CityNotFoundException e) {
+			return new ResponseEntity<>(e.getExceptionMessage(),HttpStatus.BAD_REQUEST);
+			}
+	}
+	
+	/**
+	*
+	* La rotta di tipo GET '/WeatherForecast' restituisce le previsioni meteo di una determinata città (Ancona di default) a partire
+	* dal momento corrispondente della chiamata fino ai 5 giorni seguenti ogni 3 ore leggendo le informazioni dal JSONObject ricavato dall'API.
+	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo
+	* @return CityObject
+	*
+	*/
+	@GetMapping("/WeatherForecast")
+	public ResponseEntity<Object> Forecast5day(@RequestParam(value="CityName", defaultValue="Ancona")String CityName) throws ParseException, CityNotFoundException{
+		try {
+		return new ResponseEntity<>(JSONParse.ParseCity(CityName),HttpStatus.OK);
+		}
+		catch(CityNotFoundException e) {
+			return new ResponseEntity<>(e.getExceptionMessage(),HttpStatus.BAD_REQUEST);
+			}
 	
 	/**
 	*
@@ -79,7 +113,7 @@ public class WeatherController {
 	/**
 	*
 	* La rotta di tipo GET '/getForecastWeather' restituisce le previsioni meteo di una determinata città (Ancona di default) a partire
-	* dal momento corrispondente della chiamata fino ai 5 giorni seguenti ogni 3 ore leggendo le infarmazioni dal file 'CityName.txt'
+	* dal momento corrispondente della chiamata fino ai 5 giorni seguenti ogni 3 ore leggendo le informazioni dal file 'CityName.txt'.
 	* @param CityName rappresenta la città di cui si vogliono conoscere le previsioni meteo 
 	* @return CityObject
 	* 
