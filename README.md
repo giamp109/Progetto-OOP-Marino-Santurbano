@@ -28,7 +28,7 @@ La chiamata effettuata tramite PostMan è la seguente:
  - *API key* rappresenta la chiave di accesso al servizio.
 
 Attraverso una richiesta di tipo GET effettuata tramite PostMan si ottiene il seguente JSONFile.
-
+```json
     {
     "cod": "200",
     "message": 0,
@@ -85,7 +85,7 @@ Attraverso una richiesta di tipo GET effettuata tramite PostMan si ottiene il se
 	        "sunrise": 1641969526,
 	        "sunset": 1642002716
         }
-
+```
 I valori presi in considerazione da MyWeather sono:
  - `city : id` // corrisponde all'ID della città selezionata
  - `city : name` // corrisponde al nome della città selezionata
@@ -107,7 +107,7 @@ La chiamata effettuata tramite PostMan è la seguente:
  - *API key* rappresenta la chiave di accesso al servizio.
  
 Attraverso una richiesta di tipo GET effettuata tramite PostMan si ottiene il seguente JSONFile.
-
+```json
     {
         "coord": {
             "lon": 13.1667,
@@ -151,6 +151,7 @@ Attraverso una richiesta di tipo GET effettuata tramite PostMan si ottiene il se
         "name": "Provincia di Ancona",
         "cod": 200
     }
+```
 I valori presi in considerazione da MyWeather sono:
  - `id` // corrisponde all'ID della città selezionata
  - `name` // corrisponde al nome della città selezionata
