@@ -1,6 +1,6 @@
 # MyWeather
-***AUTORI
-Davide Santurbano
+***AUTORI<br>
+Davide Santurbano<br>
 Giampaolo Marino***
 
 ## Descrizione generale
