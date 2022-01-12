@@ -1,8 +1,6 @@
 # MyWeather
 ***AUTORI
-#
 Davide Santurbano
-#
 Giampaolo Marino***
 
 ## Descrizione generale
