@@ -30,7 +30,7 @@ La chiamata effettuata tramite PostMan è la seguente:
 Attraverso una richiesta di tipo GET effettuata tramite PostMan si ottiene il seguente JSONFile.
 
     {
-    <div style="color:green;">"cod"</div>: "200",
+    "cod": "200",
     "message": 0,
     "cnt": 40,
     "list": [
