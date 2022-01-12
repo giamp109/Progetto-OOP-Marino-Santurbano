@@ -1,6 +1,8 @@
 # MyWeather
 ***AUTORI
+#
 Davide Santurbano
+#
 Giampaolo Marino***
 
 ## Descrizione generale
@@ -99,4 +101,3 @@ I valori presi in considerazione da MyWeather sono:
  - `list [weather : description]`
  - `list [dt_txt]`
 
-# Progetto-OOP-Marino-Santurbano
