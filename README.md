@@ -1,6 +1,6 @@
 # MyWeather
-***AUTORI<br>
-Davide Santurbano<br>
+***AUTORI <br>
+Davide Santurbano <br>
 Giampaolo Marino***
 
 ## Descrizione generale
@@ -94,8 +94,75 @@ I valori presi in considerazione da MyWeather sono:
  - `list [main : temp_min]` // corrisponde alla temperatura minima in un determinato orario
  - `list [main : temp_max]` // corrisponde alla temperatura massima in un determinato orario
  - `list [main : feels_like]` // corrisponde alla temperatura percepita in un determinato orario
- - `list [main : humidity]`
- - `list [weather : main]`
- - `list [weather : description]`
- - `list [dt_txt]`
+ - `list [main : humidity]` // corrisponde all'umidità percepita in un determinato orario
+ - `list [weather : main]` // corrisponde alla condizione meteo 
+ - `list [weather : description]` // corrisponde alla descrizione della condizione meteo
+ - `list [dt_txt]` // corrisponde alla data e all'orario (nel formato : "yyyy-mm-dd   hh:mm:ss")
+#
+### *Esempio current weather data*
+La chiamata effettuata tramite PostMan è la seguente:
+
+    api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
+ - *city name* rappresenta la città di cui si vogliono conoscere le previsioni meteo;
+ - *API key* rappresenta la chiave di accesso al servizio.
+ 
+Attraverso una richiesta di tipo GET effettuata tramite PostMan si ottiene il seguente JSONFile.
+
+    {
+        "coord": {
+            "lon": 13.1667,
+            "lat": 43.55
+        },
+        "weather": [
+            {
+                "id": 801,
+                "main": "Clouds",
+                "description": "few clouds",
+                "icon": "02n"
+            }
+        ],
+        "base": "stations",
+        "main": {
+            "temp": 278.65,
+            "feels_like": 274.61,
+            "temp_min": 276.25,
+            "temp_max": 280.56,
+            "pressure": 1031,
+            "humidity": 56
+        },
+        "visibility": 10000,
+        "wind": {
+            "speed": 6.17,
+            "deg": 350
+        },
+        "clouds": {
+            "all": 20
+        },
+        "dt": 1642010917,
+        "sys": {
+            "type": 2,
+            "id": 2022004,
+            "country": "IT",
+            "sunrise": 1641969526,
+            "sunset": 1642002716
+        },
+        "timezone": 3600,
+        "id": 3183087,
+        "name": "Provincia di Ancona",
+        "cod": 200
+    }
+I valori presi in considerazione da MyWeather sono:
+ - `id` // corrisponde all'ID della città selezionata
+ - `name` // corrisponde al nome della città selezionata
+ - `sys : country` // corrisponde allo Stato della città selezionata
+ - `main : temp` // corrisponde alla temperatura in un determinato orario
+ - `main : temp_min` // corrisponde alla temperatura minima in un determinato orario
+ - `main : temp_max` // corrisponde alla temperatura massima in un determinato orario
+ - `main : feels_like` // corrisponde alla temperatura percepita in un determinato orario
+ - `main : humidity` // corrisponde all'umidità percepita in un determinato orario
+ - `weather : main` // corrisponde alla condizione meteo 
+ - `weather : description` // corrisponde alla descrizione della condizione meteo
+ - `dt` // corrisponde alla data e all'orario (nel formato "epoch")
+ - `timezone` // corrisponde allo shift in secondi rispetto all'UTC
+
 
