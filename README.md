@@ -70,9 +70,9 @@ Attraverso una richiesta di tipo GET effettuata tramite PostMan si ottiene il se
             },
             "dt_txt": "2022-01-12 18:00:00"
         }
-	
-        . . .
-       
+```	
+        ...
+```json       
         "city": {
 	        "id": 3183087,
 	        "name": "Provincia di Ancona",
