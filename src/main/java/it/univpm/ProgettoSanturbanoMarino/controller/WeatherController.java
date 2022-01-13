@@ -47,7 +47,7 @@ public class WeatherController {
 	*/
 	
 	@GetMapping("/saveJSON")
-	public ResponseEntity<Object> saveJSONCurrent(@RequestParam (value = "CityName", defaultValue = "Ancona") String CityName) throws ParseException, CityNotFoundException, FileNotFoundException {		
+	public ResponseEntity<Object> saveJSON(@RequestParam (value = "CityName", defaultValue = "Ancona") String CityName) throws ParseException, CityNotFoundException, FileNotFoundException {		
 		try {
 			String path = "JSONfile API forecast 5days/3hours saved in: " + JSONFile.saveJSON(CityName) + "\nJSONfile API current saved in: " + JSONFileCurrent.saveJSONCurrent(CityName);
 			return new ResponseEntity<>(path, HttpStatus.OK);
