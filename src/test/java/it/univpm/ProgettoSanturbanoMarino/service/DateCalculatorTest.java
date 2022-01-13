@@ -28,7 +28,7 @@ private DateCalculator calculator;
 	
 	/**
 	*
-	* 
+	* Vengono inizializzati i componenti utili ai fini dei test.
 	*/
 	@BeforeEach
 	void setUp() throws Exception {
