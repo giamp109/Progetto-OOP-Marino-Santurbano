@@ -250,10 +250,12 @@ La rotta */WeatherForecast* permette di visualizzare le informazioni meteo rigua
 		    "temperatureMin": 9.11,
 		    "feelsLike": 9.35
 	    }
+	    ```
 	    ...
+	    ```json
 	   ]
-    }
-```
+    ```
+
 #
 ### *Esempio chiamata `/getCurrentWeather`*
 
@@ -278,7 +280,9 @@ La rotta */getCurrentWeather* permette di leggere le informazioni dal file *'Cit
 			        "temperatureMin": -0.33,
 			        "feelsLike": -3.9
 		        }
-			    ...
+			   ```
+			   ...
+			   ```json
 		      ]
         }
 ```
@@ -306,7 +310,9 @@ La rotta */getCurrentWeather* permette di leggere le informazioni dal file *'Cit
 				    "temperatureMin": 1.05,
 				    "feelsLike": -2.73
 			    }
+			    ```
 			    ...
+			    ```json
 		    ]
     }
 ```
@@ -345,7 +351,9 @@ La rotta *'/filterTime'* permette di filtrare le previsioni meteo contenute nel 
 				    "temperatureMin": 6.32,
 				    "feelsLike": 2.09
 			    }
+			    ```
 			    ...
+			    ```json
 		    ]
     }
 ```
@@ -384,7 +392,9 @@ La rotta *'/filterOneDay'* permette di filtrare le previsioni meteo contenute ne
 				    "temperatureMin": 3.11,
 				    "feelsLike": -0.64
 			    },
+			    ```
 			    ...
+			    ```json
 		    ]
     }
 ```
@@ -424,7 +434,9 @@ La rotta *'/filterFiveDays'* permette di filtrare le previsioni meteo contenute 
 				    "temperatureMin": 2.09,
 				    "feelsLike": -1.29
 			    },
+			    ```
 			    ...
+			    ```json
 		    ]
     }
 ```
@@ -435,12 +447,12 @@ La rotta *'/filterFiveDays'* permette di filtrare le previsioni meteo contenute 
 La rotta *'HumidityStatsTime'* permette di ottenere le statistiche sull'umidità, ovvero umidità minima, umidità massima, media e varianza, sulle previsioni meteo filtrate per fascia oraria. La rotta impiega la classe *'util.HumidityStats'* che contiene i metodi *'HumidityMaxMin()', 'HumidityAverage()', 'HumidityVariance()'* che prendono, in questo caso, come parametro il `CityObject` filtrato per fascia oraria dal metodo *'timeslot()'* della classe *'filter.Filter'* e restituiscono sotto forma di `String` i valori delle statistiche sopra elencate.
  
 #### Chiamata PostMan
-```json
+
     maximum humidity: 71
     minimum humidity : 44
     Humidity Average: 59.8
     Humidity Variance: 8.84
-```
+
  #
 ### *Esempio chiamata `/HumidityStatsOneDay`*
 
@@ -449,12 +461,12 @@ La rotta *'HumidityStatsTime'* permette di ottenere le statistiche sull'umidità
 La rotta *'HumidityStatsOneDay'* permette di ottenere le statistiche sull'umidità, ovvero umidità minima, umidità massima, media e varianza, sulle previsioni meteo filtrate in base ad una determinata data. La rotta impiega la classe *'util.HumidityStats'* che contiene i metodi *'HumidityMaxMin()', 'HumidityAverage()', 'HumidityVariance()'* che prendono, in questo caso, come parametro il `CityObject` filtrato in base ad una determinata data dal metodo *'onedayslot()'* della classe *'filter.Filter'* e restituiscono sotto forma di `String` i valori delle statistiche sopra elencate.
  
 #### Chiamata PostMan
-```json
+
     maximum humidity: 80
     minimum humidity : 62
     Humidity Average: 69.63
     Humidity Variance: 6.87
-```
+
  #
 ### *Esempio chiamata `/HumidityStatsFiveDays`*
 
@@ -462,12 +474,12 @@ La rotta *'HumidityStatsOneDay'* permette di ottenere le statistiche sull'umidit
 La rotta *'HumidityStatsOneDay'* permette di ottenere le statistiche sull'umidità, ovvero umidità minima, umidità massima, media e varianza, sulle previsioni meteo filtrate con periodicità 5 giorni. La rotta impiega la classe *'util.HumidityStats'* che contiene i metodi *'HumidityMaxMin()', 'HumidityAverage()', 'HumidityVariance()'* che prendono, in questo caso, come parametro il `CityObject` filtrato con periodicità 5 giorni dal metodo *'fivedaysslot()'* della classe *'filter.Filter'* e restituiscono sotto forma di `String` i valori delle statistiche sopra elencate.
  
 #### Chiamata PostMan
-```json
+
     maximum humidity: 89
     minimum humidity : 43
     Humidity Average: 67.65
     Humidity Variance: 10.18
-```
+
  #
 ### *Esempio chiamata `/ErrorCurrentForecast`*
 
