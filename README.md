@@ -252,9 +252,9 @@ La rotta */WeatherForecast* permette di visualizzare le informazioni meteo rigua
 	    }
 ```
 	    ...
-```json
+
 	   ]
-```
+
 
 #
 ### *Esempio chiamata `/getCurrentWeather`*
@@ -282,10 +282,10 @@ La rotta */getCurrentWeather* permette di leggere le informazioni dal file *'Cit
 		        }
 ```
 			   ...
-```json
+
 		      ]
         }
-```
+
 #
 ### *Esempio chiamata `/getForecastWeather`*
 
@@ -312,10 +312,10 @@ La rotta */getCurrentWeather* permette di leggere le informazioni dal file *'Cit
 			    }
 ```
 			    ...
-```json
+
 		    ]
     }
-```
+
  #
 ### *Esempio chiamata `/filterTime`*
 
@@ -353,10 +353,10 @@ La rotta *'/filterTime'* permette di filtrare le previsioni meteo contenute nel 
 			    }
 ```
 			    ...
-```json
+
 		    ]
     }
-```
+
  #
 ### *Esempio chiamata `/filterOneDay`*
 
@@ -394,10 +394,10 @@ La rotta *'/filterOneDay'* permette di filtrare le previsioni meteo contenute ne
 			    },
 ```
 			    ...
-```json
+
 		    ]
     }
-```
+
  #
 ### *Esempio chiamata `/filterFiveDays`*
 
@@ -436,10 +436,10 @@ La rotta *'/filterFiveDays'* permette di filtrare le previsioni meteo contenute 
 			    },
 ```
 			    ...
-```json
+
 		    ]
     }
-```
+
  #
 ### *Esempio chiamata `/HumidityStatsTime`*
 
