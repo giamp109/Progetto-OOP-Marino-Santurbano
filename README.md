@@ -254,7 +254,7 @@ La rotta */WeatherForecast* permette di visualizzare le informazioni meteo rigua
 	    ...
 ```json
 	   ]
-    ```
+```
 
 #
 ### *Esempio chiamata `/getCurrentWeather`*
