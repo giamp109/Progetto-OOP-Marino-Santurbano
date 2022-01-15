@@ -34,7 +34,7 @@ static String result;
 				humiditymin = currentcity.getForecastlist().get(i).getHumidity();
 		}
 		
-	        result = "maximum humidity: " + humiditymax + " minimum humidity : " + humiditymin;		
+		result="maximum humidity: "+humiditymax+"\nminimum humidity : "+humiditymin;		
 		return result;
 	}
 	
