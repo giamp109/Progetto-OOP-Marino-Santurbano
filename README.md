@@ -484,6 +484,23 @@ La rotta *'HumidityStatsOneDay'* permette di ottenere le statistiche sull'umidit
 ### *Esempio chiamata `/ErrorCurrentForecast`*
 
     localhost:8080/ErrorCurrentForecast?CityName={CityName}
+La rotta *'/ErrorCurrentForecast'* permette di calcolare l'errore rispetto alla temperatura, temperatura minima, temperatura massima, temperatura percepita e l'umidità tra l'API *'forecast 5 day / 3 hour'* e l'API *'current weather data'* in un determinato giorno e orario. Tale rotta impiega la classe *'util.ErrorForecastCurrent'* che mette a disposizione il metodo *'ErrorCalculator()'* che prende come parametri due `CityObject`: 
+
+ - Il `CityObject` contenente le informazioni ottenute dall'API `'weather data current'.` Questo `CityObject` è ottenuto dal parsing del file *'CityNamecurrent.txt'* tramite il metodo *'FileCurrentParse()'* della classe *'service.JSONFileCurrentParser'*.
+ - Il `CityObject` contenente le informazioni ottenute dall'API *'forecast 5 day / 3 hour'.* Questo `CityObject` è ottenuto dal parsing del file *'CityName.txt'* tramite il metodo *'FileParse()'* della classe *'service.JSONFileParser'*.
+
+I valori che otteniamo possono essere sia negativi che positivi:
+
+ - Nel caso i valori ottenuti siano positivi, significa che tali valori del  *'forecast 5 day / 3 hour'* sono maggiori rispetto ai valori del  *'current weather data'*. 
+ - Nel caso i valori ottenuti siano negativi, significa che tali valori del  *'forecast 5 day / 3 hour'* sono minori rispetto ai valori del  *'current weather data'*.
+ 
+#### Chiamata PostMan
+
+    error between forecast and current temperature: 0.86
+    error between forecast and current maximum temperature: -2.0
+    error between forecast and current minimum temperature :3.2
+    error between forecast and current felt like temperature: 0.0
+    error between forecast and current humidity: -15.0
 
 
 
