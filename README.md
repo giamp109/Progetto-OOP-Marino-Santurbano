@@ -250,9 +250,9 @@ La rotta */WeatherForecast* permette di visualizzare le informazioni meteo rigua
 		    "temperatureMin": 9.11,
 		    "feelsLike": 9.35
 	    }
-	    ```
+```
 	    ...
-	    ```json
+```json
 	   ]
     ```
 
@@ -280,9 +280,9 @@ La rotta */getCurrentWeather* permette di leggere le informazioni dal file *'Cit
 			        "temperatureMin": -0.33,
 			        "feelsLike": -3.9
 		        }
-			   ```
+```
 			   ...
-			   ```json
+```json
 		      ]
         }
 ```
@@ -310,9 +310,9 @@ La rotta */getCurrentWeather* permette di leggere le informazioni dal file *'Cit
 				    "temperatureMin": 1.05,
 				    "feelsLike": -2.73
 			    }
-			    ```
+```
 			    ...
-			    ```json
+```json
 		    ]
     }
 ```
@@ -351,9 +351,9 @@ La rotta *'/filterTime'* permette di filtrare le previsioni meteo contenute nel 
 				    "temperatureMin": 6.32,
 				    "feelsLike": 2.09
 			    }
-			    ```
+```
 			    ...
-			    ```json
+```json
 		    ]
     }
 ```
@@ -392,9 +392,9 @@ La rotta *'/filterOneDay'* permette di filtrare le previsioni meteo contenute ne
 				    "temperatureMin": 3.11,
 				    "feelsLike": -0.64
 			    },
-			    ```
+```
 			    ...
-			    ```json
+```json
 		    ]
     }
 ```
@@ -434,9 +434,9 @@ La rotta *'/filterFiveDays'* permette di filtrare le previsioni meteo contenute 
 				    "temperatureMin": 2.09,
 				    "feelsLike": -1.29
 			    },
-			    ```
+```
 			    ...
-			    ```json
+```json
 		    ]
     }
 ```
