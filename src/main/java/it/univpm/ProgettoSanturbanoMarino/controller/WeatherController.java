@@ -197,7 +197,7 @@ public class WeatherController {
 	@GetMapping("/HumidityStatsTime")
 	public ResponseEntity<Object> HumidityStatsTime(@RequestParam(value = "CityName", defaultValue = "Ancona") String CityName, @RequestParam(value = "Time", defaultValue = "12:00") String Time) throws ParseException, FileNotFoundException, IOException, TimeNotFoundException   {
 		try {
-			String stats = HumidityStats.HumidityMaxMin(Filter.timeslot(CityName, Time)) + HumidityStats.HumidityAverage(Filter.timeslot(CityName, Time)) + HumidityStats.HumidityVariance(Filter.timeslot(CityName, Time));
+			String stats=HumidityStats.HumidityMaxMin(Filter.timeslot(CityName, Time))+"\n"+HumidityStats.HumidityAverage(Filter.timeslot(CityName, Time))+"\n"+HumidityStats.HumidityVariance(Filter.timeslot(CityName, Time));
 			return new ResponseEntity<>(stats, HttpStatus.OK);
 		}catch (TimeNotFoundException e) {
 			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
@@ -219,7 +219,7 @@ public class WeatherController {
 	@GetMapping("/HumidityStatsOneDay")
 	public ResponseEntity<Object> HumidityStatsOneDay(@RequestParam(value="CityName", defaultValue="Ancona")String CityName, @RequestParam(value="Date", defaultValue="2022-01-05")String Date) throws ParseException, FileNotFoundException, IOException, DateNotFoundException  {
 		try {
-			String stats = HumidityStats.HumidityMaxMin(Filter.onedayslot(CityName, Date)) + HumidityStats.HumidityAverage(Filter.onedayslot(CityName, Date)) + HumidityStats.HumidityVariance(Filter.onedayslot(CityName, Date));
+			String stats=HumidityStats.HumidityMaxMin(Filter.onedayslot(CityName, Date))+"\n"+HumidityStats.HumidityAverage(Filter.onedayslot(CityName, Date))+"\n"+HumidityStats.HumidityVariance(Filter.onedayslot(CityName, Date));
 			return new ResponseEntity<>(stats, HttpStatus.OK);
 		}catch (DateNotFoundException e) {
 			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
@@ -238,7 +238,7 @@ public class WeatherController {
 	
 	@GetMapping("/HumidityStatsFiveDays")
 	public ResponseEntity<Object> HumidityStatsFiveDays(@RequestParam(value = "CityName", defaultValue = "Ancona") String CityName) throws ParseException, FileNotFoundException, IOException   {
-		String stats = HumidityStats.HumidityMaxMin(Filter.fivedaysslot(CityName)) + HumidityStats.HumidityAverage(Filter.fivedaysslot(CityName)) + HumidityStats.HumidityVariance(Filter.fivedaysslot(CityName));
+		String stats=HumidityStats.HumidityMaxMin(Filter.fivedaysslot(CityName))+"\n"+HumidityStats.HumidityAverage(Filter.fivedaysslot(CityName))+"\n"+HumidityStats.HumidityVariance(Filter.fivedaysslot(CityName));
 		return new ResponseEntity<>(stats, HttpStatus.OK);
 	}
 	
