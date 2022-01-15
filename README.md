@@ -167,4 +167,313 @@ I valori presi in considerazione da MyWeather sono:
  - `dt` // corrisponde alla data e all'orario (nel formato "epoch")
  - `timezone` // corrisponde allo shift in secondi rispetto all'UTC
 
+## Introduzione rotte
+|*ROTTA*| *METODO* | *@param* |*DESCRIZIONE*
+|--|--|--|--|
+| `/saveJSON` | GET |CityName| Restituisce le directory dei file salvati 'CityName.txt' e 'CityNameCurrent.txt'
+|`/WeatherCurrent`|GET|CityName| Restituisce le previsioni meteo sotto forma di CityObject nel momento della chiamata nell'orario corrente
+|`/WeatherForecast` |GET| CityName | Restituisce le previsioni meteo sotto forma di CityObject per i successivi 5 giorni dalla chiamata ogni 3 ore
+|`/getCurrentWeather`| GET | CityName | Restituisce le previsioni meteo sotto forma di CityObject leggendole dal file denominato 'CityNameCurrent.txt'
+|`/getForecastWeather` | GET | CityName | Restituisce le previsioni meteo sotto forma di CityObject leggendole dal file denominato 'CityName.txt'
+|`/filterTime` | GET | CityName, Time | Filtra le previsioni meteo lette dal file 'CityName.txt' in base ad una fascia oraria stabilita restituendo un CityObject
+|`/filterOneDay` | GET | CityName, Date | Filtra le previsioni meteo lette dal file 'CityName.txt' in base ad una data restituendo un CityObject
+|`/filterFiveDays`| GET | CityName | Filtra le previsioni meteo lette dal file 'CityName.txt' con periodicità 5 giorni restituendo un CityObject
+|`/HumidityStatsTime`| GET | CityName, Time | Restituisce statistiche relative l'umidità di una determinata città in una specifica fascia oraria
+|`/HumidityStatsOneDay` | GET | CityName, Date | Restituisce statistiche relative l'umidità di una determinata città in una data specifica
+|`/HumidityStatsFiveDays` | GET | CityName | Restituisce statistiche relative l'umidità di una determinata città per i cinque giorni successivi alla chiamata
+|`/ErrorCurrentForecast` | GET | CityName, Date, Time | Restituisce l'errore matematico calcolato tra le previsioni meteo del *"current weather data"* e quelle del *"forecast 5 day / 3 hours"*
+
+## Spiegazioni rotte
+### *Esempio chiamata `/saveJSON`*
+
+    localhost:8080/saveJSON?CityName={CityName}
+La rotta */saveJSON*  permette di salvare due file: 
+
+ - 'CityName.txt' : contenete le informazioni meteo ottenute dall'API *forecast 5 day / 3 hours*
+ - 'CityNameCurrent.txt' : contenente le informazioni meteo ottenute dall'API *current weather data*
+
+Il file CityNameCurrent.txt aggiorna le informazioni meteo ogni ora grazie all'impiego di un timer.
+La rotta restituisce il `path`, ovvero le directory in cui vengono salvati i due file.
+
+#### Chiamata PostMan
+
+    JSONfile API forecast 5days/3hours saved in: D:\programmazione ad ogetti-UNIVPM\lavori\Progetto-Santurbano-Marino\Milano.txt  
+    JSONfile API current saved in: D:\programmazione ad ogetti-UNIVPM\lavori\Progetto-Santurbano-Marino\Milanocurrent.txt
+
+#
+### *Esempio chiamata `/WeatherCurrent`*
+
+    localhost:8080/WeatherCurrent?CityName={CityName}
+La rotta */WeatherCurrent* permette di visualizzare le informazioni meteo riguardo ad una specifica città, prendendo tali informazioni dall'API *weather data current*. Tale rotta impiega la classe *database.WeatherDatabaseCurrent* che conteien il metodo *'getForecastCurrent()'* per ottenere il file JSON dall'API e la classe *service.JSONParseCurrent* che contiene il metodo *'ParseCity()'* per effettuare il parsing delle informazioni ottenute dall'API  restituendo un `CityObject` contenente le previsioni meteo. 
+
+#### Chiamata PostMan
+```json
+    {
+	    "id": "3173435",
+	    "cityname": "Milan",
+	    "citycountry": "IT",
+	    "forecastlist": [
+		    {
+		    "humidity": 55,
+		    "main": "Clear",
+		    "description": "clear sky",
+		    "temperature": 9.01,
+		    "date": "2022-01-15",
+		    "time": "11:54:30",
+		    "temperatureMax": 16.61,
+		    "temperatureMin": 4.82,
+		    "feelsLike": 9.01
+		    }
+	    ]
+    }
+```
+#
+### *Esempio chiamata `/WeatherForecast`*
+
+    localhost:8080/WeatherForecast?CityName={CityName}
+La rotta */WeatherForecast* permette di visualizzare le informazioni meteo riguardo ad una specifica città, prendendo tali informazioni dall'API *forecast 5 day / 3 hour*. Tale rotta impiega la classe *database.WeatherDatabase* che contiene il metodo *'getForecast()'* per ottenere il file JSON dall'API e la classe *service.JSONParse* che contiene il metodo *'ParseCity()'* per effettuare il parsing delle informazioni ottenute dall'API  restituendo un `CityObject` contenente le previsioni meteo. 
+
+#### Chiamata PostMan
+```json
+    "id": "3173435",
+    "cityname": "Milan",
+    "citycountry": "IT",
+    "forecastlist": [
+	    {
+		    "humidity": 53,
+		    "main": "Clear",
+		    "description": "clear sky",
+		    "temperature": 9.35,
+		    "date": "2022-01-15",
+		    "time": "12:00:00",
+		    "temperatureMax": 9.35,
+		    "temperatureMin": 9.11,
+		    "feelsLike": 9.35
+	    }
+	    ...
+	   ]
+    }
+```
+#
+### *Esempio chiamata `/getCurrentWeather`*
+
+    localhost:8080/getCurrentWeather?CityName={CityName}
+La rotta */getCurrentWeather* permette di leggere le informazioni dal file *'CityNamecurrent.txt'* e restituire le previsioni meteo sottoforma di `CityObject`. Tale rotta impiega la classe *service.JSONFileCurrentParser* che contiene il metodo *'FileCurrentParse()'* che apre in lettura il file '*CityNamecurrent.txt*', converte il suo contenuto in `JSONObject` e effettua il parsing delle informazioni creando un `CityObject`.  Si differenzia dalla rotta CurrentWeather per il fatto che la precedente permette di visualizzare le previsioni meteo solo nell'orario della chiamata, mentre la getCurrentWeather permette di visualizzare le previsioni meteo aggiornate ogni ora.
+
+#### Chiamata PostMan
+```json
+       {
+        "id": "3183087",
+        "cityname": "Provincia di Ancona",
+        "citycountry": "IT",
+	        "forecastlist": [
+		        {
+			        "humidity": 74,
+			        "main": "Rain",
+			        "description": "light rain",
+			        "temperature": 0.38,
+			        "date": "2022-01-09",
+			        "time": "19:14:49",
+			        "temperatureMax": 2.69,
+			        "temperatureMin": -0.33,
+			        "feelsLike": -3.9
+		        }
+			    ...
+		      ]
+        }
+```
+#
+### *Esempio chiamata `/getForecastWeather`*
+
+    localhost:8080/getForecastWeather?CityName={CityName}
+ La rotta */getForecastWeather* permette di leggere le informazioni dal file *'CityName.txt'* e restituire le previsioni meteo sottoforma di `CityObject`. Tale rotta impiega la classe *service.JSONFileParser* che contiene il metodo *'FileParse()'* che apre in lettura il file '*CityName.txt*', converte il suo contenuto in JSONObject e effettua il parsing delle informazioni creando un `CityObject`.  
+ 
+#### Chiamata PostMan
+```json
+    {
+	    "id": "3183087",
+	    "cityname": "Provincia di Ancona",
+	    "citycountry": "IT",
+		    "forecastlist": [
+			    {
+				    "humidity": 81,
+				    "main": "Rain",
+				    "description": "light rain",
+				    "temperature": 1.05,
+				    "date": "2022-01-09",
+				    "time": "21:00:00",
+				    "temperatureMax": 2.4,
+				    "temperatureMin": 1.05,
+				    "feelsLike": -2.73
+			    }
+			    ...
+		    ]
+    }
+```
+ #
+### *Esempio chiamata `/filterTime`*
+
+    localhost:8080/filterTime?CityName={CityName}&Time={Time}
+La rotta *'/filterTime'* permette di filtrare le previsioni meteo contenute nel file *'CityName.txt'* per fascia oraria. Tale rotta impiega la classe *'filter.Filter'* che contiene il metodo *'timeslot()'* che effettua il parsing delle informazioni dal file *'CityName.txt'* e filtra il `CityObject` ottenuto in base alla fascia oraria.
+ 
+#### Chiamata PostMan
+```json
+    {
+	    "id": "3183087",
+	    "cityname": "Provincia di Ancona",
+	    "citycountry": "IT",
+		    "forecastlist": [
+			    {
+				    "humidity": 71,
+				    "main": "Clouds",
+				    "description": "overcast clouds",
+				    "temperature": 6.14,
+				    "date": "2022-01-10",
+				    "time": "12:00:00",
+				    "temperatureMax": 6.14,
+				    "temperatureMin": 6.14,
+				    "feelsLike": 1.08
+			    },
+			    {
+				    "humidity": 63,
+				    "main": "Clouds",
+				    "description": "scattered clouds",
+				    "temperature": 6.32,
+				    "date": "2022-01-11",
+				    "time": "12:00:00",
+				    "temperatureMax": 6.32,
+				    "temperatureMin": 6.32,
+				    "feelsLike": 2.09
+			    }
+			    ...
+		    ]
+    }
+```
+ #
+### *Esempio chiamata `/filterOneDay`*
+
+    localhost:8080/filterOneDay?CityName={CityName}&Date={Date}
+La rotta *'/filterOneDay'* permette di filtrare le previsioni meteo contenute nel file *'CityName.txt'* in base ad un determinato giorno. Tale rotta impiega la classe *'filter.Filter'* che contiene il metodo *'onedayslot()'* che effettua il parsing delle informazioni dal file *'CityName.txt'* e filtra il `CityObject` ottenuto in base ad una determinata data.
+ 
+#### Chiamata PostMan
+```json
+    {
+	    "id": "3183087",
+	    "cityname": "Provincia di Ancona",
+	    "citycountry": "IT",
+		    "forecastlist": [
+			    {
+				    "humidity": 86,
+				    "main": "Rain",
+				    "description": "light rain",
+				    "temperature": 2.09,
+				    "date": "2022-01-10",
+				    "time": "00:00:00",
+				    "temperatureMax": 2.95,
+				    "temperatureMin": 2.09,
+				    "feelsLike": -1.29
+			    },
+			    {
+				    "humidity": 89,
+				    "main": "Rain",
+				    "description": "light rain",
+				    "temperature": 3.11,
+				    "date": "2022-01-10",
+				    "time": "03:00:00",
+				    "temperatureMax": 3.11,
+				    "temperatureMin": 3.11,
+				    "feelsLike": -0.64
+			    },
+			    ...
+		    ]
+    }
+```
+ #
+### *Esempio chiamata `/filterFiveDays`*
+
+    localhost:8080/filterFiveDays?CityName={CityName}
+    
+La rotta *'/filterFiveDays'* permette di filtrare le previsioni meteo contenute nel file *'CityName.txt'* in base alla periodicità: 5 giorni. Tale rotta impiega la classe *'filter.Filter'* che contiene il metodo *'fivedayslot()'* che effettua il parsing delle informazioni dal file *'CityName.txt'* e filtra il `CityObject` ottenuto in base alla periodicità 5 giorni.
+ 
+#### Chiamata PostMan
+```json
+    {
+	    "id": "3183087",
+	    "cityname": "Provincia di Ancona",
+	    "citycountry": "IT",
+		    "forecastlist": [
+			    {
+				    "humidity": 81,
+				    "main": "Rain",
+				    "description": "light rain",
+				    "temperature": 1.05,
+				    "date": "2022-01-09",
+				    "time": "21:00:00",
+				    "temperatureMax": 2.4,
+				    "temperatureMin": 1.05,
+				    "feelsLike": -2.73
+			    },
+			    {
+				    "humidity": 86,
+				    "main": "Rain",
+				    "description": "light rain",
+				    "temperature": 2.09,
+				    "date": "2022-01-10",
+				    "time": "00:00:00",
+				    "temperatureMax": 2.95,
+				    "temperatureMin": 2.09,
+				    "feelsLike": -1.29
+			    },
+			    ...
+		    ]
+    }
+```
+ #
+### *Esempio chiamata `/HumidityStatsTime`*
+
+    localhost:8080/HumidityStatsTime?CityName={CityName}&Time={Time}
+La rotta *'HumidityStatsTime'* permette di ottenere le statistiche sull'umidità, ovvero umidità minima, umidità massima, media e varianza, sulle previsioni meteo filtrate per fascia oraria. La rotta impiega la classe *'util.HumidityStats'* che contiene i metodi *'HumidityMaxMin()', 'HumidityAverage()', 'HumidityVariance()'* che prendono, in questo caso, come parametro il `CityObject` filtrato per fascia oraria dal metodo *'timeslot()'* della classe *'filter.Filter'* e restituiscono sotto forma di `String` i valori delle statistiche sopra elencate.
+ 
+#### Chiamata PostMan
+```json
+    maximum humidity: 71
+    minimum humidity : 44
+    Humidity Average: 59.8
+    Humidity Variance: 8.84
+```
+ #
+### *Esempio chiamata `/HumidityStatsOneDay`*
+
+    localhost:8080/HumidityStatsOneDay?CityName={CityName}&Date={Date}
+    
+La rotta *'HumidityStatsOneDay'* permette di ottenere le statistiche sull'umidità, ovvero umidità minima, umidità massima, media e varianza, sulle previsioni meteo filtrate in base ad una determinata data. La rotta impiega la classe *'util.HumidityStats'* che contiene i metodi *'HumidityMaxMin()', 'HumidityAverage()', 'HumidityVariance()'* che prendono, in questo caso, come parametro il `CityObject` filtrato in base ad una determinata data dal metodo *'onedayslot()'* della classe *'filter.Filter'* e restituiscono sotto forma di `String` i valori delle statistiche sopra elencate.
+ 
+#### Chiamata PostMan
+```json
+    maximum humidity: 80
+    minimum humidity : 62
+    Humidity Average: 69.63
+    Humidity Variance: 6.87
+```
+ #
+### *Esempio chiamata `/HumidityStatsFiveDays`*
+
+    localhost:8080/HumidityStatsFiveDays?CityName={CityName}
+La rotta *'HumidityStatsOneDay'* permette di ottenere le statistiche sull'umidità, ovvero umidità minima, umidità massima, media e varianza, sulle previsioni meteo filtrate con periodicità 5 giorni. La rotta impiega la classe *'util.HumidityStats'* che contiene i metodi *'HumidityMaxMin()', 'HumidityAverage()', 'HumidityVariance()'* che prendono, in questo caso, come parametro il `CityObject` filtrato con periodicità 5 giorni dal metodo *'fivedaysslot()'* della classe *'filter.Filter'* e restituiscono sotto forma di `String` i valori delle statistiche sopra elencate.
+ 
+#### Chiamata PostMan
+```json
+    maximum humidity: 89
+    minimum humidity : 43
+    Humidity Average: 67.65
+    Humidity Variance: 10.18
+```
+ #
+### *Esempio chiamata `/ErrorCurrentForecast`*
+
+    localhost:8080/ErrorCurrentForecast?CityName={CityName}
+
+
+
+
 
