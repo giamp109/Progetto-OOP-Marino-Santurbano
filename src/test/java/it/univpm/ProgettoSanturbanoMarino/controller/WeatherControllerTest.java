@@ -66,7 +66,7 @@ class WeatherControllerTest {
 		String cityname = "Ancona";
 		String time="12:00";
 
-		ResponseEntity<String> response= new ResponseEntity<>("maximum humidity: 71\nminimum humidity : 44\n Humidity Average: 59.8\n Humidity Variance: 8.84",HttpStatus.OK);
+		ResponseEntity<String> response= new ResponseEntity<>("maximum humidity: 71\nminimum humidity : 44\nHumidity Average: 59.8\nHumidity Variance: 8.84",HttpStatus.OK);
 		assertEquals(controller.HumidityStatsTime(cityname, time),response);        
     }
 	
@@ -81,7 +81,7 @@ class WeatherControllerTest {
 		String cityname = "Ancona";
 		String date="2022-01-13";
 
-		ResponseEntity<String> response= new ResponseEntity<>("maximum humidity: 78\nminimum humidity : 59\n Humidity Average: 68.75\n Humidity Variance: 5.8",HttpStatus.OK);
+		ResponseEntity<String> response= new ResponseEntity<>("maximum humidity: 78\nminimum humidity : 59\nHumidity Average: 68.75\nHumidity Variance: 5.8",HttpStatus.OK);
 		assertEquals(controller.HumidityStatsOneDay(cityname, date),response);        
     }
 	
@@ -95,7 +95,7 @@ class WeatherControllerTest {
     	
 		String cityname = "Ancona";
 
-		ResponseEntity<String> response= new ResponseEntity<>("maximum humidity: 89\nminimum humidity : 43\n Humidity Average: 67.65\n Humidity Variance: 10.18",HttpStatus.OK);
+		ResponseEntity<String> response= new ResponseEntity<>("maximum humidity: 89\nminimum humidity : 43\nHumidity Average: 67.65\nHumidity Variance: 10.18",HttpStatus.OK);
 		assertEquals(controller.HumidityStatsFiveDays(cityname),response);        
     }
 	
