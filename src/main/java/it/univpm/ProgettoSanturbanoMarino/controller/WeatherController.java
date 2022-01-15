@@ -90,6 +90,7 @@ public class WeatherController {
 		catch(CityNotFoundException e) {
 			return new ResponseEntity<>(e.getExceptionMessage(),HttpStatus.BAD_REQUEST);
 			}
+	}
 	
 	/**
 	*
