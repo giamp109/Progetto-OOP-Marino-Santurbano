@@ -51,7 +51,7 @@ static String result;
 			sumhumidity += currentcity.getForecastlist().get(i).getHumidity();
 		average = sumhumidity/currentcity.getForecastlist().size();
 		
-	        result = " Humidity Average: " + average;
+	        result = "Humidity Average: " + average;
 		return result;	
 	}
 	
@@ -74,7 +74,7 @@ static String result;
 		variance = sumvariance/currentcity.getForecastlist().size();
 		variance = Math.sqrt(variance);
 		double roundnumber = Math.round(variance*100.0)/100.0;
-	        result = " Humidity Variance: " + roundnumber;
+	        result = "Humidity Variance: " + roundnumber;
 		return result;
 	}	
 }
