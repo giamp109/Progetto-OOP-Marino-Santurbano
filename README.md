@@ -536,6 +536,34 @@ Riga di codice con la quale viene instaurata la connessione servendoci dei packa
 #
 #### *Exceptions*
 Questo pacchetto contiene le classi '*CityNotFoundException*', '*DateNotFoundException*' e '*TimeNotFoundException*' che hanno il compito, attraverso dei metodi, di fornire un messaggio di errore nei rispettivi casi di: inserimento errato di nome di città, inserimento di data non valida e inserimento di orario non valido.
+#
+#### *Filter*
+Questo pacchetto contiene la classe '*filter*' che ha il compito di eseguire i filtraggi sulle operazioni che l'applicazione web è in grado di compiere. I tipi di filtraggio sono 3:
+
+ - *timeslot*: questo filtro permette di visualizzare le informazioni filtrate realtivamente ad un determinato orario;
+ - *onedayslot*: questo filtro permette di visualizzare le informazioni filtrate relativamente ad un determinato giorno;
+ - *fivedayslot*: questo filtro permette di visualizzare le informazioni filtrate per i 5 giorni seguenti alla chiamata con la frequenza di 3 ore.
+#
+#### *Model*
+Questo pacchetto contiene le classi '*City*', '*Forecast*', '*Temperature*' e '*Time*' che hanno il compito di definire le informazioni ottenute a seguito delle chiamate alle APIs.  
+La classe '*City*' contiene le informazioni che definiscono le città interessate dall'utente e le classifica con *id, cityname* e *citycountry*.
+La classe '*Forecast*' contiene le informazioni che definiscono le previsioni meteo delle città interessate dall'utente e le classifica con *humidity, main* e *description*. Questi ultimi due campi fanno riferimento al contenuto degli stessi presenti nei JSONObject ottenuti dalla chiamata.
+La classe '*Temperature*' contiene le informazioni relative alla temperatura delle città interessate e le classifica con *tempereture, temperaturemin, temperaturemax* e *feelslike*. Questa classe è una derivata della classe '*Forecast*' perchè è un'estensione delle previsioni meteo ottenute a seguito della chiamata.
+La classe '*Time*' contiene le informazioni relative a orario e data delle città interessate e le classifica con *time* e *date*. Questa classe è una derivata della classe '*Temperature*' perchè permette in questo modo di tenere conto di orario e data della rispettiva previsione meteo.
+#
+#### *Service*
+Questo pacchetto contiene le classi '*DateCalculator*', '*JSONFile*', '*JSONFileCurrent*', '*JSONFileCurrentParser*', '*JSONFileParser*' e '*JSONParse*'.
+La classe '*DateCalculator*' dispone di un metodo che si occupa di trasformare l'epoca letta dal JSONObject al tipo LocalDateTime.
+La classe '*JSONFile*' dispone di un metodo che si occupa della creazione di un JSONObject a partire da un oggetto di tipo '*City*' ottenuto dopo l'operazione di parsing.
+La classe '*JSONFileCurrent*' dispone di un metodo che si occupa della creazione di un JSONObject attraverso le relative richieste ricavato dal metodo `getForecastCurrent()` appartenente alla classe '*WeatherDatabaseCurrent*'.
+La classe '*JSONFileCurrentParser*' dispone di un metodo che si occupa di effettuare il parsing delle informazioni che vengono lette dal file 'citynamecurrent.txt' contenente tutte le informazioni provenienti dalla chiamata all'API '*current weather data*' e si occupa in seguito della creazione di un oggetto di tipo City.
+La classe '*JSONFileParser*' dispone di un metodo che si occupa di effettuare il parsing delle informazioni che vengono lette dal file 'cityname.txt' contenente tutte le informazioni provenienti dalla chiamata all'API '*forecast 5 day/ 3 hours*' e si occupa in seguito della creazione di un oggetto di tipo City.
+la classe '*JSONParse*' dispone di un metodo che si occupa di effettuare il parsing direttamente dalla chiamata dell'API '*forecast 5 day/ 3 hours*' e della creazione di un oggetto di tipo City.
+#
+#### *Util*
+Questo pacchetto contiene le classi '*ErrorForecastCurrent*' e '*HumidityStats*' che dispongono di metodi che si occupano rispettivamente di:
+ - calcolare l'errore tra le informazioni fornite dalle due API (*forecast 5 day / 3 hour* e *current weather data*) rispetto a temperatura, temperatura massima, temperatura minima, temperatura percepita e umidità relativamente ad una determinata data ed un determinato orario;
+ - calcolare le statistiche relative ai valori di umidità rilevati (permette di calcolare il massimo, il minimo, la media e la varianza).
 
 
 
