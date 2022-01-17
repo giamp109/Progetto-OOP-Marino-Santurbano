@@ -502,6 +502,40 @@ I valori che otteniamo possono essere sia negativi che positivi:
     error between forecast and current felt like temperature: 0.0
     error between forecast and current humidity: -15.0
 
+## ORGANIZZAZIONE DEL PROGETTO
+Il progetto è stato implementato seguendo il pattern architetturale MVC (Model-View-Controller) fortemente diffuso nell'ambito delle applicazioni web e della OOP. Questa architettura si basa su tre componenti che sono appunto: 
+ - *Model*: si occupa della gestione dei metodi per accedere ai dati ed alle informazioni necessarie per l'applicazione;
+ - *View*: si occupa di visualizzare i dati contenuti nel model e dell'interazione con l'utente;
+ - *Controller*: si occupa di ricevere i comandi dall'utente ed ha il compito di attuarli modificando lo stato degli altri due componenti.
+
+Questa architettura si appoggia inoltre su framework differenti relativamente al linguaggio necessario per la stesura di un determinato applicativo come ad esempio *Symfony* o *Laravel* per PHP, *Django* o *TurboGears* per Python e, nel nostro caso *Spring* per Java.
+Quest'ultimo è un framework open source appunto utilizzato in Java che supporta anche altri progetti come ad esempio Spring Boot e Spring Tools che sono stati impiegati all'interno del progetto. Sping Boot ha 
+
+#
+### *PACKAGES*
+Nel nostro caso, il progetto è stato implementato impiegando i seguenti packages e seguendo appunto l'architettura MVC; tutti i pacchetti sotto descritti sono contenuti nella destinazione '*Progetto-OOP-Marino-Santurbano.src.mai.java.it.univpm*':
+#### *Controller*
+Questo pacchetto contiene la classe *WeatherController* contenente a sua volta tutte le rotte necessarie ad attuare tutto ciò che l'utente richiede attraverso di esse.
+La seguente è la rotta */getCurrentWeather* descritta in precedenza.
+
+    	@GetMapping("/getCurrentWeather")
+	public ResponseEntity<Object> getForecastCurrent(@RequestParam (value = "CityName", defaultValue = "Ancona") String CityName) throws ParseException, FileNotFoundException, IOException{		
+		try {
+			return new ResponseEntity<>(JSONFileCurrentParser.FileCurrentParse(CityName), HttpStatus.OK);
+		}catch (FileNotFoundException e) {
+			return new ResponseEntity<>("Invalid City Name", HttpStatus.OK);
+		}
+	}
+#
+#### *Database*
+Questo pacchetto contiene le classi '*WeatherDatabase*' e '*WeatherDatabaseCurrent*' che hanno il compito, attraverso due metodi, di instaurare la connessione con le APIs impiegate.
+La prima fa riferimento all'API *forecast 5 day/3 hours* per la successiva rilevazione di informazioni riguardanti le previsioni meteo per i 5 giorni successivi alla chiamata con una frequenza di 3 ore mentre la seconda fa riferimento all'API *weather current data* per la successiva rilevazione di informazioni riguardanti le previsioni meteo dell'orario corrente alla chiamata.
+
+    URLConnection OpenConnection = new URL(url+City + "&units=metric&appid=" + APIkey).openConnection();
+Riga di codice con la quale viene instaurata la connessione servendoci dei packages '*java.net.URL*' e '*java.net.URLConnection*'.
+#
+#### *Exceptions*
+Questo pacchetto contiene le classi '*CityNotFoundException*', '*DateNotFoundException*' e '*TimeNotFoundException*' che hanno il compito, attraverso dei metodi, di fornire un messaggio di errore nei rispettivi casi di: inserimento errato di nome di città, inserimento di data non valida e inserimento di orario non valido.
 
 
 
