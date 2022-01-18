@@ -564,6 +564,22 @@ la classe '*JSONParse*' dispone di un metodo che si occupa di effettuare il pars
 Questo pacchetto contiene le classi '*ErrorForecastCurrent*' e '*HumidityStats*' che dispongono di metodi che si occupano rispettivamente di:
  - calcolare l'errore tra le informazioni fornite dalle due API (*forecast 5 day / 3 hour* e *current weather data*) rispetto a temperatura, temperatura massima, temperatura minima, temperatura percepita e umidità relativamente ad una determinata data ed un determinato orario;
  - calcolare le statistiche relative ai valori di umidità rilevati (permette di calcolare il massimo, il minimo, la media e la varianza).
+## *NOTE AGGIUNTIVE*
+#### *File*
+I file presenti nel GitHub denominati 'Ancona.txt' e 'Anconacurrent.txt' sono un esempio dei file descritti in precedenza con il nome di 'CityName.txt' e 'CityNameCurrent.txt' e contengono rispettivamente:
+ - '*Ancona.txt*' contiene le informazioni riguardanti le previsioni meteo fornite dalla chiamata all'API 'forecast 5 day/ 3 hour' effettuata il giorno 2022-01-09 alle ore 19:14. Nel file, la prima fascia oraria che si può visualizzare, è quella delle 21 perchè OpenWeather fornisce il meteo (servendosi di questa API) per ogni 3 ore a partire dalle 00:00; di conseguenza, la prima fascia oraria risulta la sopracitata avendo effettuato la chiamata alle 19:14. Ad esempio, per ottenere le previsioni meteo per la fascia oraria precedente (in questo caso si fa riferimento a quella delle 18:00), avremmo dovuto effettuare la chiamata prima di quel momento.
+ - '*Anconacurrent.txt*' contiene le informazioni riguardanti le previsioni meteo fornite dalla chiamata all'API 'current weather data' effettuata il giorno 2022-10-09 alle ore 19:14 (convertito dal formato epoch fornito da OpenWeather) e delle successive 21 ore. Questo perchè, a differenza del file descritto in precedenza, l'API corrente fornisce le previsioni meteo del momento in cui viene effettuata la chiamata e, attraverso un timer settato ad 1 ora, sono state raccolte nel file le previsioni successive alla prima fino alle 16:18 (convertito dal formato epoch).
+#
+#### *Test*
+Al fine di testare il programma sono stati effettuati dei test attraverso il framework *JUnit* sulle classi '*WeatherController*' e '*DateCalulator*'. Lo scopo è quello di testare l'esatto funzionamento delle singole unità (metodi e classi) con il fine di ridurre ed eliminare possibili errori dell'applicazione. Nella classe '*WeatherControllerTest*' sono stati testati i seguenti metodi: '*saveFile()*', '*HumidityStatsTime*', '*HumidityStatsOneDay*' e '*HumidityStatsFiveDay*' con dei metodi relativi ai precedenti che richiamano e ne verificano il corretto funzionamento attraverso la resituzione di una stringa. Di seguito un esempio:
+
+    @Test
+    @DisplayName("Correct Humidity Stats Five Days")
+    void HumidityStatsFiveDayControl() throws FileNotFoundException, ParseException, IOException {
+	    String cityname = "Ancona";
+	    ResponseEntity<String> response= new ResponseEntity<>("maximum humidity: 89\nminimum humidity : 43\nHumidity Average: 67.65\nHumidity Variance:10.18", HttpStatus.OK);
+	    assertEquals(controller.HumidityStatsFiveDays(cityname),response);
+    }
 
 
 
