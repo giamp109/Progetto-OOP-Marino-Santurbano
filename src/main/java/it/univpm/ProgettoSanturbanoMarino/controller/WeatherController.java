@@ -143,7 +143,11 @@ public class WeatherController {
 	@GetMapping("/filterTime")
 	public ResponseEntity<Object> getfilterTime(@RequestParam(value = "CityName", defaultValue = "Ancona") String CityName, @RequestParam(value = "Time", defaultValue = "12:00") String Time) throws ParseException, FileNotFoundException, IOException, TimeNotFoundException   {
 		try {
+			try{
 			return new ResponseEntity<>(Filter.timeslot(CityName, Time), HttpStatus.OK);
+			}catch(FileNotFoundException e){
+			return new ResponseEntity<>("File non trovato o errore nella scrittura del nome della città, utilizza /saveJSON per creare il file",HttpStatus.BAD_REQUEST);
+			}
 		}catch (TimeNotFoundException e) {
 			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
 		}
@@ -163,7 +167,11 @@ public class WeatherController {
 	@GetMapping("/filterOneDay")
 	public ResponseEntity<Object> getfilterOneDay(@RequestParam(value = "CityName", defaultValue = "Ancona") String CityName, @RequestParam(value = "Date", defaultValue = "2022-01-06") String Date) throws ParseException, FileNotFoundException, IOException, DateNotFoundException   {
 		try {
+			try{
 			return new ResponseEntity<>(Filter.onedayslot(CityName, Date), HttpStatus.OK);
+			}catch(FileNotFoundException e){
+			return new ResponseEntity<>("File non trovato o errore nella scrittura del nome della città, utilizza /saveJSON per creare il file",HttpStatus.BAD_REQUEST);
+			}
 		}catch (DateNotFoundException e ) {
 			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
 		}
@@ -181,7 +189,11 @@ public class WeatherController {
 	
 	@GetMapping("/filterFiveDays")
 	public ResponseEntity<Object> getfilterFiveDays(@RequestParam(value = "CityName", defaultValue = "Ancona") String CityName) throws ParseException, FileNotFoundException, IOException   {
+		try{
 		return new ResponseEntity<>(Filter.fivedaysslot(CityName), HttpStatus.OK);
+		}catch(FileNotFoundException e){
+		return new ResponseEntity<>("File non trovato o errore nella scrittura del nome della città, utilizza /saveJSON per creare il file",HttpStatus.BAD_REQUEST);
+		}
 	}
 		
 	
@@ -198,8 +210,12 @@ public class WeatherController {
 	@GetMapping("/HumidityStatsTime")
 	public ResponseEntity<Object> HumidityStatsTime(@RequestParam(value = "CityName", defaultValue = "Ancona") String CityName, @RequestParam(value = "Time", defaultValue = "12:00") String Time) throws ParseException, FileNotFoundException, IOException, TimeNotFoundException   {
 		try {
-			String stats=HumidityStats.HumidityMaxMin(Filter.timeslot(CityName, Time))+"\n"+HumidityStats.HumidityAverage(Filter.timeslot(CityName, Time))+"\n"+HumidityStats.HumidityVariance(Filter.timeslot(CityName, Time));
-			return new ResponseEntity<>(stats, HttpStatus.OK);
+			try{
+				String stats=HumidityStats.HumidityMaxMin(Filter.timeslot(CityName, Time))+"\n"+HumidityStats.HumidityAverage(Filter.timeslot(CityName, Time))+"\n"+HumidityStats.HumidityVariance(Filter.timeslot(CityName, Time));
+				return new ResponseEntity<>(stats, HttpStatus.OK);
+			}catch(FileNotFoundException e){
+		         	 return new ResponseEntity<>("File non trovato o errore nella scrittura del nome della città, utilizza /saveJSON per creare il file",HttpStatus.BAD_REQUEST);
+			}	
 		}catch (TimeNotFoundException e) {
 			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
 		}
@@ -220,8 +236,12 @@ public class WeatherController {
 	@GetMapping("/HumidityStatsOneDay")
 	public ResponseEntity<Object> HumidityStatsOneDay(@RequestParam(value="CityName", defaultValue="Ancona")String CityName, @RequestParam(value="Date", defaultValue="2022-01-05")String Date) throws ParseException, FileNotFoundException, IOException, DateNotFoundException  {
 		try {
+			try{
 			String stats=HumidityStats.HumidityMaxMin(Filter.onedayslot(CityName, Date))+"\n"+HumidityStats.HumidityAverage(Filter.onedayslot(CityName, Date))+"\n"+HumidityStats.HumidityVariance(Filter.onedayslot(CityName, Date));
 			return new ResponseEntity<>(stats, HttpStatus.OK);
+			}catch(FileNotFoundException e){
+			  return new ResponseEntity<>("File non trovato o errore nella scrittura del nome della città, utilizza /saveJSON per creare il file",HttpStatus.BAD_REQUEST);
+			}
 		}catch (DateNotFoundException e) {
 			return new ResponseEntity<>(e.getExceptionMessage(), HttpStatus.BAD_REQUEST);
 		}
@@ -239,8 +259,12 @@ public class WeatherController {
 	
 	@GetMapping("/HumidityStatsFiveDays")
 	public ResponseEntity<Object> HumidityStatsFiveDays(@RequestParam(value = "CityName", defaultValue = "Ancona") String CityName) throws ParseException, FileNotFoundException, IOException   {
+		try{
 		String stats=HumidityStats.HumidityMaxMin(Filter.fivedaysslot(CityName))+"\n"+HumidityStats.HumidityAverage(Filter.fivedaysslot(CityName))+"\n"+HumidityStats.HumidityVariance(Filter.fivedaysslot(CityName));
 		return new ResponseEntity<>(stats, HttpStatus.OK);
+		}catch(FileNotFoundException e){
+		return new ResponseEntity<>("File non trovato o errore nella scrittura del nome della città, utilizza /saveJSON per creare il file",HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	
@@ -261,7 +285,7 @@ public class WeatherController {
 		try {
 			return new ResponseEntity<>(ErrorForecastCurrent.ErrorCalculator(JSONFileCurrentParser.FileCurrentParse(CityName), JSONFileParser.FileParse(CityName), Date, Time), HttpStatus.OK);	
 		}catch (FileNotFoundException e) {
-			return new ResponseEntity<>("File not found, use the route 'save JSON' to crate the files", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>("File non trovato o errore nella scrittura del nome della città, utilizza /saveJSON per creare il file", HttpStatus.BAD_REQUEST);
 		}
 	}
 }
