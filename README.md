@@ -3,7 +3,7 @@
 Davide Santurbano <br>
 Giampaolo Marino***
 
-## Descrizione generale
+## DESCRIZIONE GENERALE
 Il progetto MyWeather è un web service ovvero un sistema software progettato per supportare l'interoperabilità tra diversi elaboratori su una medesima rete comunicando tramite il protocollo HTTP. MyWeather è in grado di mettersi a servizio mette di un client, come ad esempio PostMan, consentendo agli utenti che vi si collegano di utilizzare le funzioni messe a disposizione.
 MyWeather mette a disposizione un servizio di previsioni meteo che:
 
@@ -167,7 +167,7 @@ I valori presi in considerazione da MyWeather sono:
  - `dt` // corrisponde alla data e all'orario (nel formato "epoch")
  - `timezone` // corrisponde allo shift in secondi rispetto all'UTC
 
-## Introduzione rotte
+## INTRODUZIONE ROTTE
 |*ROTTA*| *METODO* | *@param* |*DESCRIZIONE*
 |--|--|--|--|
 | `/saveJSON` | GET |CityName| Restituisce le directory dei file salvati 'CityName.txt' e 'CityNameCurrent.txt'
@@ -183,7 +183,7 @@ I valori presi in considerazione da MyWeather sono:
 |`/HumidityStatsFiveDays` | GET | CityName | Restituisce statistiche relative l'umidità di una determinata città per i cinque giorni successivi alla chiamata
 |`/ErrorCurrentForecast` | GET | CityName, Date, Time | Restituisce l'errore matematico calcolato tra le previsioni meteo del *"current weather data"* e quelle del *"forecast 5 day / 3 hours"*
 
-## Spiegazioni rotte
+## SPIEGAZIONE ROTTE
 ### *Esempio chiamata `/saveJSON`*
 
     localhost:8080/saveJSON?CityName={CityName}
